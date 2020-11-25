@@ -19,6 +19,13 @@ defmodule YouSpeakWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/auth", YouSpeakWeb do
+    pipe_through :browser
+
+    get "/:provider", Auth.AuthController, :request
+    get "/:provider/callback", Auth.AuthController, :callback
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", YouSpeakWeb do
   #   pipe_through :api
