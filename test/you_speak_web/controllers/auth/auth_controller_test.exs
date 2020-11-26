@@ -1,33 +1,31 @@
 defmodule YouSpeakWeb.Auth.AuthControllerTest do
   use YouSpeakWeb.ConnCase
 
-  # alias Discuss.Repo
-  # alias Discuss.Users.User
-  # alias Discuss.Factory
-  #
-  # @ueberauth_auth %{
-  #   credentials: %{
-  #     token: "mytoken123",
-  #   },
-  #   info: %{
-  #     email: "xunda@example.org",
-  #     name: "xunda",
-  #   }
-  # }
-  #
-  # @invalid_ueberauth_auth %{
-  #   credentials: %{
-  #     token: "",
-  #   },
-  #   info: %{
-  #     email: "xunda@example.org",
-  #     name: "xunda",
-  #   }
-  # }
-  #
-  # def user_factory do
-  #   Factory.insert(:user)
-  # end
+  alias YouSpeak.Repo
+  alias YouSpeak.Auth.Schemas.User
+  alias YouSpeak.Factory
+
+  @ueberauth_auth %{
+    credentials: %{
+      token: "mytoken123",
+    },
+    info: %{
+      email: "xunda@example.org",
+      name: "xunda",
+    }
+  }
+
+  @invalid_ueberauth_auth %{
+    credentials: %{
+      token: "",
+    },
+    info: %{
+      email: "xunda@example.org",
+      name: "xunda",
+    }
+  }
+
+  def user_factory(attributes), do: Factory.insert!(:user, attributes)
   #
   # test "redirects user to github auth", %{conn: conn} do
   #   conn = get(conn, auth_path(conn, :request, "github"))
