@@ -67,6 +67,42 @@ defmodule YouSpeak.Auth.Schemas.UserTest do
         |> User.changeset(%{})
         |> Repo.insert()
     end
+
+    test "provider must not be blank" do
+      changeset =
+        user_factory()
+        |> User.changeset(%{provider: ""})
+
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).provider
+    end
+
+    test "provider must not be nil" do
+      changeset =
+        user_factory()
+        |> User.changeset(%{provider: nil})
+
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).provider
+    end
+
+    test "token must not be blank" do
+      changeset =
+        user_factory()
+        |> User.changeset(%{token: ""})
+
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).token
+    end
+
+    test "token must not be nil" do
+      changeset =
+        user_factory()
+        |> User.changeset(%{token: nil})
+
+      refute changeset.valid?
+      assert "can't be blank" in errors_on(changeset).token
+    end
   end
   #
   # describe "user schema validations" do

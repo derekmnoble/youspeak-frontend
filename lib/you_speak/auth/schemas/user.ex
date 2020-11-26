@@ -4,6 +4,7 @@ defmodule YouSpeak.Auth.Schemas.User do
 
   @email_validation_regex ~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
   @permitted_params [:email, :role, :provider, :token]
+  @required_fields [:email, :role, :provider, :token]
 
   schema "users" do
     field :email, :string
@@ -17,7 +18,7 @@ defmodule YouSpeak.Auth.Schemas.User do
   def changeset(struct, attributes) do
     struct
     |> cast(attributes, @permitted_params)
-    |> validate_required(:email)
+    |> validate_required(@required_fields)
     |> validate_format(:email, @email_validation_regex)
     |> unique_constraint(:email)
   end
