@@ -5,6 +5,6 @@ defmodule YouSpeakWeb.Auth.AuthController do
   def callback(conn, params) do
     IO.inspect(conn.assigns)
     IO.inspect(params)
-    conn
+    text(conn, "ok")
   end
 end
