@@ -5,9 +5,7 @@ defmodule YouSpeak.Auth.Schemas.UserTest do
   alias YouSpeak.Auth.Schemas.User
   alias YouSpeak.Repo
 
-  def user_factory(attributes \\ %{}) do
-    Factory.build(:user, attributes)
-  end
+  def user_factory(attributes \\ %{}), do: Factory.build(:user, attributes)
 
   test "return valid true when data is valid" do
     changeset =
