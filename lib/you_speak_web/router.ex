@@ -7,6 +7,7 @@ defmodule YouSpeakWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug YouSpeakWeb.Plugs.SetUser
   end
 
   pipeline :api do
@@ -22,6 +23,7 @@ defmodule YouSpeakWeb.Router do
   scope "/auth", YouSpeakWeb do
     pipe_through :browser
 
+    get "/signout", Auth.AuthController, :signout
     get "/:provider", Auth.AuthController, :request
     get "/:provider/callback", Auth.AuthController, :callback
   end

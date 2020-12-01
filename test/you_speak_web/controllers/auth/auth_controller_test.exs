@@ -61,16 +61,16 @@ defmodule YouSpeakWeb.Auth.AuthControllerTest do
     assert redirected_to(conn) == Routes.page_path(conn, :index)
   end
 
-  # test "GET /signout must remove user from session", %{conn: conn} do
-  #   user = user_factory()
-  #   conn = assign(conn, :user, user)
-  #
-  #   conn =
-  #     conn
-  #     |> get(Routes.auth_path(conn, :signout))
-  #
-  #   assert is_nil(conn.assigns[:user])
-  #   assert get_flash(conn, :info) == "Successful sign out!"
-  #   assert redirected_to(conn) == Routes.page_path(conn, :index)
-  # end
+  test "GET /signout must remove user from session", %{conn: conn} do
+    user = user_factory()
+    conn = assign(conn, :user, user)
+
+    conn =
+      conn
+      |> get(Routes.auth_path(conn, :signout))
+
+    assert is_nil(conn.assigns[:user])
+    assert get_flash(conn, :info) == "Successful sign out!"
+    assert redirected_to(conn) == Routes.page_path(conn, :index)
+  end
 end

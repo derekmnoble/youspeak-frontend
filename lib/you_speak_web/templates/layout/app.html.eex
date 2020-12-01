@@ -22,6 +22,17 @@
         <a href="https://phoenixframework.org/" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
         </a>
+        <ul class="right">
+         <%= if @conn.assigns[:user] do %>
+           <li>
+             <%= link "Sign out", to: Routes.auth_path(@conn, :signout) %>
+           </li>
+         <% else %>
+           <li>
+             <%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google") %>
+           </li>
+         <% end %>
+       </ul>
       </section>
     </header>
     <main role="main" class="container">
