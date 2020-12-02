@@ -16,7 +16,7 @@ defmodule YouSpeakWeb.Auth.AuthController do
         conn
         |> put_flash(:info, "User #{user.email} successful log in")
         |> put_session(:user_id, user.id)
-        |> redirect(to: Routes.page_path(conn, :index))
+        |> redirect(to: Routes.registration_path(conn, :new))
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Some problem happen, login failed!")

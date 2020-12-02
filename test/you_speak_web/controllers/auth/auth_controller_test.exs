@@ -46,7 +46,7 @@ defmodule YouSpeakWeb.Auth.AuthControllerTest do
     assert Repo.one(from u in User, select: count(u.id)) == 1
 
     assert get_flash(conn, :info) == "User xunda@example.org successful log in"
-    assert redirected_to(conn) == Routes.page_path(conn, :index)
+    assert redirected_to(conn) == Routes.registration_path(conn, :new)
   end
 
   test "GET /:google with error auth must not create a new user", %{conn: conn} do
