@@ -10,6 +10,16 @@ defmodule YouSpeak.Factory do
     }
   end
 
+  def build(:teacher) do
+    %YouSpeak.Teachers.Schemas.Teacher{
+      name: "name-#{System.unique_integer()}",
+      namespace: "namespace-#{System.unique_integer()}",
+      description: "",
+      url: "",
+      user_id: __MODULE__.build(:user).id
+    }
+  end
+
   def build(factory_name, attributes) do
     factory_name
     |> build()
