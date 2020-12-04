@@ -20,7 +20,9 @@ defmodule YouSpeakWeb.Plugs.RequireAuthTest do
     assert conn == RequireAuth.call(conn, %{})
   end
 
-  test "call/2 without a user in a assign struct must redirect to root and halt request", %{conn: conn} do
+  test "call/2 without a user in a assign struct must redirect to root and halt request", %{
+    conn: conn
+  } do
     conn =
       conn
       |> assign(:user, nil)

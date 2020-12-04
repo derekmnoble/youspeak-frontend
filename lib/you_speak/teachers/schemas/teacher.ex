@@ -38,5 +38,6 @@ defmodule YouSpeak.Teachers.Schemas.Teacher do
 
     put_change(user_changeset, :namespace, slugified_namespace)
   end
+
   defp slugify_namespace(changeset), do: changeset
 end

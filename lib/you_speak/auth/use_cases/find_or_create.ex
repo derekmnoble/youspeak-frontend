@@ -22,6 +22,7 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
         %User{}
         |> User.changeset(params)
         |> Repo.insert()
+
       user ->
         {:ok, user}
     end

@@ -18,7 +18,7 @@ defmodule YouSpeakWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/teachers/registrarion", Teachers.RegistrationController, :new
+    get "/teachers/registrarion/new", Teachers.RegistrationController, :new
   end
 
   scope "/auth", YouSpeakWeb do

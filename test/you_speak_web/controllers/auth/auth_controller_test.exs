@@ -9,22 +9,22 @@ defmodule YouSpeakWeb.Auth.AuthControllerTest do
 
   @ueberauth_auth %{
     credentials: %{
-      token: "mytoken123",
+      token: "mytoken123"
     },
     info: %{
       email: "xunda@example.org",
-      name: "xunda",
+      name: "xunda"
     },
     provider: :google
   }
 
   @invalid_ueberauth_auth %{
     credentials: %{
-      token: "",
+      token: ""
     },
     info: %{
       email: "xunda@example.org",
-      name: "xunda",
+      name: "xunda"
     },
     provider: :""
   }
