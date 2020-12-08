@@ -19,6 +19,7 @@ defmodule YouSpeakWeb.Router do
 
     get "/", PageController, :index
     get "/teachers/registration/new", Teachers.RegistrationController, :new
+    # get "/teachers/registration/", Teachers.RegistrationController, :create
   end
 
   scope "/auth", YouSpeakWeb do

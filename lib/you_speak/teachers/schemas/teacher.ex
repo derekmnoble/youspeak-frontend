@@ -2,7 +2,7 @@ defmodule YouSpeak.Teachers.Schemas.Teacher do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @permitted_params [:name, :namespace, :description, :url]
+  @permitted_params [:name, :namespace, :description, :url, :user_id]
   @required_fields [:name, :namespace]
 
   schema "teachers" do
