@@ -1,9 +1,12 @@
 defmodule YouSpeakWeb.Teachers.RegistrationController do
   use YouSpeakWeb, :controller
+  alias YouSpeak.Teachers.Schemas.Teacher
 
   plug YouSpeakWeb.Plugs.RequireAuth when action in [:new]
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    changeset = Teacher.changeset(%Teacher{}, %{})
+
+    render(conn, "new.html", changeset: changeset)
   end
 end

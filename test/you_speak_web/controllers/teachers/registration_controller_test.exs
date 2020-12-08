@@ -20,9 +20,9 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
     {:ok, conn: conn}
   end
 
-  test "GET /teacher/registrarion/new", %{conn: conn} do
+  test "GET /teacher/registration/new", %{conn: conn} do
     conn = get(conn, Routes.registration_path(conn, :new))
 
-    assert html_response(conn, 200) =~ "RegistrationController#new"
+    assert html_response(conn, 200) =~ "Complete your registration"
   end
 end
