@@ -21,6 +21,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
         conn
         |> put_flash(:info, "Registration completed!")
         |> redirect(to: Routes.page_path(conn, :index))
+
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

@@ -37,19 +37,19 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
   end
 
   describe "POST /teachers/registrarion" do
-   test "with valid data must create a new teacher and redirect to page path", %{
-     conn: conn
-   } do
-     conn = post(conn, Routes.registration_path(conn, :create), teacher: @valid_params)
+    test "with valid data must create a new teacher and redirect to page path", %{
+      conn: conn
+    } do
+      conn = post(conn, Routes.registration_path(conn, :create), teacher: @valid_params)
 
-     assert get_flash(conn, :info) == "Registration completed!"
-     assert redirected_to(conn) == Routes.page_path(conn, :index)
-   end
+      assert get_flash(conn, :info) == "Registration completed!"
+      assert redirected_to(conn) == Routes.page_path(conn, :index)
+    end
 
-   test "with invalid data render errors and keep in the new page", %{conn: conn} do
-     conn = post(conn, Routes.registration_path(conn, :create), teacher: @invalid_params)
+    test "with invalid data render errors and keep in the new page", %{conn: conn} do
+      conn = post(conn, Routes.registration_path(conn, :create), teacher: @invalid_params)
 
-     assert html_response(conn, 200) =~ "Complete your registration"
-   end
- end
+      assert html_response(conn, 200) =~ "Complete your registration"
+    end
+  end
 end

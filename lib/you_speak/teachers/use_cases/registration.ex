@@ -8,6 +8,7 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
   alias YouSpeak.Teachers.Schemas.Teacher
 
   def call(params) when map_size(params) == 0, do: {:error, "error"}
+
   def call(params) do
     %Teacher{}
     |> Teacher.changeset(params)

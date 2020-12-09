@@ -36,6 +36,7 @@ defmodule YouSpeak.Teachers.UseCases.RegistrationTest do
 
   test "call/1 with already used namespace must return changeset error" do
     _teacher = teacher_factory(%{namespace: "test"})
+
     params = %{
       name: "Name",
       namespace: "test",
@@ -49,6 +50,7 @@ defmodule YouSpeak.Teachers.UseCases.RegistrationTest do
 
   test "call/1 with valid data must create a new teacher" do
     current_user = user_factory()
+
     params = %{
       name: "Name",
       namespace: "namespace",
