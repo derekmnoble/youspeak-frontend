@@ -3,6 +3,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
   alias YouSpeak.Teachers.Schemas.Teacher
 
   plug YouSpeakWeb.Plugs.RequireAuth when action in [:new]
+  plug :redirect_to_page_path_if_teacher_already_exists when action in [:new]
 
   def new(conn, _params) do
     changeset = Teacher.changeset(%Teacher{}, %{user_id: conn.assigns[:user].id})
@@ -24,6 +25,16 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
+    end
+  end
+
+  defp redirect_to_page_path_if_teacher_already_exists(conn, _) do
+    if YouSpeak.Repo.get_by(Teacher, user_id: conn.assigns[:user].id) do
+      conn
+      |> redirect(to: Routes.page_path(conn, :index))
+      |> halt()
+    else
+      conn
     end
   end
 end
