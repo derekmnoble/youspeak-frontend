@@ -16,8 +16,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
       teacher_params
       |> Map.merge(%{"user_id" => conn.assigns[:user].id})
 
-    # Move the call to a bounded context
-    case YouSpeak.Teachers.UseCases.Registration.call(teacher_params) do
+    case YouSpeak.Teachers.registration(teacher_params) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Registration completed!")
