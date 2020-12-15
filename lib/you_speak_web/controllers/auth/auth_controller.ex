@@ -2,8 +2,6 @@ defmodule YouSpeakWeb.Auth.AuthController do
   use YouSpeakWeb, :controller
   plug Ueberauth
 
-  alias YouSpeak.Auth.UseCases.FindOrCreate
-
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
       token: auth.credentials.token,
@@ -11,7 +9,7 @@ defmodule YouSpeakWeb.Auth.AuthController do
       provider: Atom.to_string(auth.provider)
     }
 
-    case FindOrCreate.call(user_params) do
+    case YouSpeak.Auth.find_or_create(user_params) do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User #{user.email} successful log in")

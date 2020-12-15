@@ -16,8 +16,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
       teacher_params
       |> Map.merge(%{"user_id" => conn.assigns[:user].id})
 
-    # Move the call to a bounded context
-    case YouSpeak.Teachers.UseCases.Registration.call(teacher_params) do
+    case YouSpeak.Teachers.registration(teacher_params) do
       {:ok, _} ->
         conn
         |> put_flash(:info, "Registration completed!")
@@ -29,12 +28,14 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
   end
 
   defp redirect_to_page_path_if_teacher_already_exists(conn, _) do
-    if YouSpeak.Repo.get_by(Teacher, user_id: conn.assigns[:user].id) do
-      conn
-      |> redirect(to: Routes.page_path(conn, :index))
-      |> halt()
-    else
-      conn
+    try do
+      if YouSpeak.Teachers.find_by_user_id(conn.assigns[:user].id) do
+        conn
+        |> redirect(to: Routes.page_path(conn, :index))
+        |> halt()
+      end
+    rescue
+      _e in Ecto.NoResultsError -> conn
     end
   end
 end

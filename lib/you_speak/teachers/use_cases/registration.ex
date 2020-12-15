@@ -1,7 +1,7 @@
 defmodule YouSpeak.Teachers.UseCases.Registration do
   @moduledoc """
   Registration is the use case responsible to enable an already logged teacher to complete
-  the current registrarion by adding more information.
+  the current registration by adding more information.
   """
 
   alias YouSpeak.Repo

@@ -2,7 +2,6 @@ defmodule YouSpeak.Teachers.UseCases.RegistrationTest do
   use YouSpeak.DataCase
 
   alias YouSpeak.Factory
-  # alias YouSpeak.Teachers.Schemas.Teacher
   alias YouSpeak.Teachers.UseCases.Registration
 
   def user_factory(attributes \\ %{}), do: Factory.insert!(:user, attributes)
