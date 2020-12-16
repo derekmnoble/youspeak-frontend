@@ -1,6 +1,6 @@
 defmodule YouSpeak.Auth.UseCases.FindOrCreate do
   @moduledoc """
-  The use case responsible to handle new sign in using google oauth, it will handle
+  Responsible to handle new sign in using google oauth, it will handle
   and create a new user in the first access or just return a user that already exists.
   """
 
@@ -10,7 +10,7 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
   alias YouSpeak.Auth.Schemas.User
 
   @doc """
-  Retuns the user based on the email or create a new one.
+  Returns the user based on the email or create a new one.
 
   ## Examples
 

@@ -1,6 +1,6 @@
 defmodule YouSpeak.Teachers do
   @moduledoc """
-  Teachers bounded context, it contains all the use cases available to the Teachers context.
+  Teachers bounded context contains all the use cases available to the Teachers context.
   """
 
   def registration(params), do: YouSpeak.Teachers.UseCases.Registration.call(params)

@@ -4,13 +4,13 @@ defmodule YouSpeak.Teachers.UseCases.FindByUserIDTest do
   alias YouSpeak.Factory
   alias YouSpeak.Teachers.UseCases.FindByUserID
 
+  doctest YouSpeak.Teachers.UseCases.FindByUserID
+
   def user_factory(attributes \\ %{}), do: Factory.insert!(:user, attributes)
   def teacher_factory(attributes \\ %{}), do: Factory.insert!(:teacher, attributes)
 
   test "call/1 with invalid user_id must raise not found" do
-    assert_raise Ecto.NoResultsError, fn ->
-      FindByUserID.call(999_999)
-    end
+    assert is_nil(FindByUserID.call(999_999))
   end
 
   test "call/1 with valid data user_id must return record" do
