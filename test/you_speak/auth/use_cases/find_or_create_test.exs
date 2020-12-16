@@ -5,6 +5,8 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreateTest do
   alias YouSpeak.Auth.Schemas.User
   alias YouSpeak.Auth.UseCases.FindOrCreate
 
+  doctest FindOrCreate
+
   def user_factory(attributes \\ %{}), do: Factory.insert!(:user, attributes)
 
   test "call/1 returns error when params is empty" do
