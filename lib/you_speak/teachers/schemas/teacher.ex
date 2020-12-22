@@ -9,7 +9,7 @@ defmodule YouSpeak.Teachers.Schemas.Teacher do
     field :name, :string
     field :namespace, :string
     field :description, :string
-    field :url
+    field :url, :string
 
     belongs_to :user, YouSpeak.Auth.Schemas.User
 
