@@ -3,7 +3,7 @@ defmodule YouSpeak.Teachers do
   Teachers bounded context contains all the use cases available to the Teachers context.
   """
 
-  @spec registration(map()) :: {:ok, YouSpeak.Teachers.Schemas.Teacher} | {:error, %Ecto.Changeset{}}
+  @spec registration(map()) :: YouSpeak.Teachers.UseCases.Registration.ok_teacher_or_error_changeset
   def registration(params), do: YouSpeak.Teachers.UseCases.Registration.call(params)
 
   @spec find_by_user_id(integer()) :: YouSpeak.Teachers.Schemas.Teacher | nil

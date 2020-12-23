@@ -16,6 +16,8 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
     email: String.t()
   }
 
+  @type ok_user_or_error_string :: {:ok, %YouSpeak.Auth.Schemas.User{}} | {:error, String.t()}
+
   @doc """
   Returns the user based on the email or create a new one.
 
@@ -26,7 +28,7 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
       iex> YouSpeak.Auth.UseCases.FindOrCreate.call(%{email: "invalid@example.org"})
       iex> %YouSpeak.Auth.Schemas.User{}
   """
-  @spec call(params()) :: {:ok, %YouSpeak.Auth.Schemas.User{}} | {:error, String.t()}
+  @spec call(params()) :: ok_user_or_error_string
   def call(params) when map_size(params) == 0, do: {:error, "params is empty"}
   def call(params) do
     result =

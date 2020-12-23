@@ -17,6 +17,8 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
     url: String.t()
   }
 
+  @type ok_teacher_or_error_changeset :: {:ok, YouSpeak.Teachers.Schemas.Teacher} | {:error, %Ecto.Changeset{}}
+
   @doc """
   Inserts a new teacher in the database or raise an error
 
@@ -28,7 +30,7 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
       iex> %YouSpeak.Teachers.Schemas.Teacher{}
   """
 
-  @spec call(params()) :: {:ok, YouSpeak.Teachers.Schemas.Teacher} | {:error, %Ecto.Changeset{}}
+  @spec call(params()) :: ok_teacher_or_error_changeset
   def call(params) when map_size(params) == 0, do: {:error, "error"}
   def call(params) do
     %Teacher{}
