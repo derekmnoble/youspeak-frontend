@@ -7,6 +7,8 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
 
   alias YouSpeak.Groups.Schemas.Group
 
+  @type groups_or_empty :: [YouSpeak.Groups.Schemas.Group] | []
+
   @doc """
   Returns a list of groups based on the teacher.id
 
@@ -18,7 +20,7 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
       - teacher_id
   """
 
-  @spec call(integer()) :: [YouSpeak.Groups.Schemas.Group] | []
+  @spec call(integer()) :: groups_or_empty
   def call(teacher_id) do
     query = from(group in Group, where: group.teacher_id == ^teacher_id)
 
