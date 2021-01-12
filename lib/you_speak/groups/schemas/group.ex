@@ -22,7 +22,16 @@ defmodule YouSpeak.Groups.Schemas.Group do
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
     |> unique_constraint(:teacher)
+    |> activate()
   end
 
   def active?(group), do: !is_nil(group.activated_at) && is_nil(group.inactivated_at)
+
+  defp activate(struct) do
+    activated_at =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.truncate(:second)
+
+    put_change(struct, :activated_at, activated_at)
+  end
 end
