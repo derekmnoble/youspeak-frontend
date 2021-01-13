@@ -2,7 +2,6 @@ defmodule YouSpeak.Groups.Schemas.Group do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @permitted_params [:name, :description, :teacher_id]
   @required_fields [:name, :description]
 
   schema "groups" do
@@ -18,16 +17,24 @@ defmodule YouSpeak.Groups.Schemas.Group do
 
   def changeset(struct, attributes) do
     struct
-    |> cast(attributes, @permitted_params)
+    |> cast(attributes, [:name, :description, :teacher_id, :activated_at, :inactivated_at])
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
     |> unique_constraint(:teacher)
     |> activate()
   end
 
+  def changeset(%{id: id} = struct, attributes) when not is_nil(id) do
+    struct
+    |> cast(attributes, [:name, :description, :activated_at, :inactivated_at])
+    |> validate_required(@required_fields)
+    |> validate_length(:name, max: 200)
+  end
+
   def active?(group), do: !is_nil(group.activated_at) && is_nil(group.inactivated_at)
 
-  defp activate(struct) do
+  # TODO: test it
+  def activate(struct) do
     activated_at =
       NaiveDateTime.utc_now()
       |> NaiveDateTime.truncate(:second)

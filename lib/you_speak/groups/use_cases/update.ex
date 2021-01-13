@@ -1,6 +1,6 @@
-defmodule YouSpeak.Groups.UseCases.Create do
+defmodule YouSpeak.Groups.UseCases.Update do
   @moduledoc """
-  Creates a new group to teacher
+  Updates a given group
   """
 
   import Ecto.Query, warn: false
@@ -9,7 +9,7 @@ defmodule YouSpeak.Groups.UseCases.Create do
   alias YouSpeak.Repo
 
   @typedoc """
-  Params used to create new record
+  Params use to update a group
   """
 
   @type params :: %{
@@ -30,18 +30,24 @@ defmodule YouSpeak.Groups.UseCases.Create do
   @doc """
   Creates a new group to a given teacher
 
-      iex> YouSpeak.Groups.UseCases.Create.call(%{name: "Test", teacher_id: 1})
+      iex> YouSpeak.Groups.UseCases.Update.call(1, %{name: "Test"})
       iex> %YouSpeak.Groups.Schemas.Group{}
 
       Params:
 
+      - group_id: id to be updated
       - params: Map with attributes (name, teacher_id are required)
   """
 
-  @spec call(params()) :: ok_group_or_error_changeset
-  def call(params) do
-    %Group{}
-    |> Group.changeset(params)
-    |> Repo.insert()
+  @spec call(integer(), params()) :: ok_group_or_error_changeset
+  def call(group_id, params) do
+    case Repo.get(Group, group_id) do
+      nil ->
+        {:error, "invalid id"}
+      group ->
+        group
+        |> Group.changeset(params)
+        |> Repo.update()
+    end
   end
 end
