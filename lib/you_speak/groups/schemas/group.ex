@@ -33,12 +33,31 @@ defmodule YouSpeak.Groups.Schemas.Group do
 
   def active?(group), do: !is_nil(group.activated_at) && is_nil(group.inactivated_at)
 
-  # TODO: test it
+  # def activate(%Team.Member{} = team_member) do
+  #   team_member
+  #   |> cast(%{active: true}, [:active])
+  # end
+  #
+  # def inactivate(%Team.Member{} = team_member) do
+  #   team_member
+  #   |> cast(%{active: false}, [:active])
+  # end
+
   def activate(struct) do
     activated_at =
       NaiveDateTime.utc_now()
       |> NaiveDateTime.truncate(:second)
 
-    put_change(struct, :activated_at, activated_at)
+    struct
+    |> cast(%{activated_at: activated_at, inactivated_at: nil}, [:activated_at, :inactivated_at])
+  end
+
+  def inactivate(struct) do
+    inactivated_at =
+      NaiveDateTime.utc_now()
+      |> NaiveDateTime.truncate(:second)
+
+    struct
+    |> cast(%{activated_at: nil, inactivated_at: inactivated_at}, [:activated_at, :inactivated_at])
   end
 end

@@ -76,15 +76,25 @@ defmodule YouSpeak.Groups.Schemas.GroupTest do
   end
 
   describe "activate/0" do
-    @tag :skip
     test "must activate a group" do
-      # group = group_factory(%{activated_at: nil, inactivated_at: ~N[2020-12-01 12:00:00]})
-      #
-      # refute Group.active?(group)
-      #
-      # updated_group = Group.activate(group)
-      #
-      # assert Group.active?(updated_group)
+      group = group_factory(%{activated_at: nil, inactivated_at: ~N[2020-12-01 12:00:00]})
+
+      changeset = Group.activate(group)
+
+      refute is_nil(Ecto.Changeset.get_change(changeset, :activated_at))
+      assert is_nil(Ecto.Changeset.get_change(changeset, :inactivated_at))
+    end
+  end
+
+  describe "inactivate/0" do
+    test "must inactivate a group" do
+      changeset =
+        %{activated_at: ~N[2020-12-01 12:00:00], inactivated_at: nil}
+        |> group_factory()
+        |> Group.inactivate()
+
+      assert is_nil(Ecto.Changeset.get_change(changeset, :activated_at))
+      refute is_nil(Ecto.Changeset.get_change(changeset, :inactivated_at))
     end
   end
 end

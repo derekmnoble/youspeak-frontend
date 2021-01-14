@@ -3,7 +3,6 @@ defmodule YouSpeak.Groups.UseCases.DeleteTest do
 
   alias YouSpeak.Factory
   alias YouSpeak.Groups.UseCases.Delete
-  alias YouSpeak.Groups.Schemas.Group
 
   def group_factory(attributes \\ %{}), do: Factory.insert!(:group, attributes)
 
