@@ -10,7 +10,8 @@ defmodule YouSpeak.Groups.UseCases.CreateTest do
   def group_factory(attributes \\ %{}), do: Factory.insert!(:group, attributes)
   def teacher_factory(attributes \\ %{}), do: Factory.insert!(:teacher, attributes)
 
-  defp add_teacher_id(group_params, teacher_id), do: Map.put(group_params, :teacher_id, teacher_id)
+  defp add_teacher_id(group_params, teacher_id),
+    do: Map.put(group_params, :teacher_id, teacher_id)
 
   setup do
     teacher = teacher_factory()
@@ -30,8 +31,9 @@ defmodule YouSpeak.Groups.UseCases.CreateTest do
   test "call/1 with valid data must create a group", %{teacher: teacher} do
     group_params = %{
       name: "Test",
-      description: "Description",
+      description: "Description"
     }
+
     params = add_teacher_id(group_params, teacher.id)
 
     {:ok, group} = Create.call(params)

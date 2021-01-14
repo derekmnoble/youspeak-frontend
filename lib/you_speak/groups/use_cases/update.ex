@@ -13,12 +13,12 @@ defmodule YouSpeak.Groups.UseCases.Update do
   """
 
   @type params :: %{
-    name: String.t,
-    description: String.t | nil,
-    activated_at: nil,
-    inactivated_at: nil,
-    teacher_id: integer()
-  }
+          name: String.t(),
+          description: String.t() | nil,
+          activated_at: nil,
+          inactivated_at: nil,
+          teacher_id: integer()
+        }
 
   @typedoc """
   Retuned typespec for given function
@@ -44,6 +44,7 @@ defmodule YouSpeak.Groups.UseCases.Update do
     case Repo.get(Group, group_id) do
       nil ->
         {:error, "invalid id"}
+
       group ->
         group
         |> Group.changeset(params)

@@ -5,15 +5,15 @@ defmodule YouSpeak.Groups do
 
   alias YouSpeak.Groups.UseCases.{Create, Get, Update, ListByTeacherID}
 
-  @spec create(Create.map()) :: Create.ok_group_or_error_changeset
+  @spec create(Create.map()) :: Create.ok_group_or_error_changeset()
   def create(params), do: Create.call(params)
 
-  @spec list_by_teacher_id(integer()) :: ListByTeacherID.groups_or_empty
+  @spec list_by_teacher_id(integer()) :: ListByTeacherID.groups_or_empty()
   def list_by_teacher_id(params), do: ListByTeacherID.call(params)
 
-  @spec get(integer()) :: Get.group_or_nil
+  @spec get(integer()) :: Get.group_or_nil()
   def get(params), do: Get.call(params)
 
-  @spec update(integer(), Update.map()) :: Update.ok_group_or_error_changeset
+  @spec update(integer(), Update.map()) :: Update.ok_group_or_error_changeset()
   def update(group_id, params), do: Update.call(group_id, params)
 end

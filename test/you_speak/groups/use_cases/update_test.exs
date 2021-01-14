@@ -10,6 +10,7 @@ defmodule YouSpeak.Groups.UseCases.UpdateTest do
 
   test "call/2 with valid data must update the content" do
     group = group_factory()
+
     new_params = %{
       name: "updated name",
       description: "updated desc"
@@ -24,6 +25,7 @@ defmodule YouSpeak.Groups.UseCases.UpdateTest do
 
   test "call/2 with invalid return changeset" do
     group = group_factory()
+
     new_params = %{
       name: "",
       description: "updated desc"
