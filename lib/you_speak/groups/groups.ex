@@ -17,6 +17,6 @@ defmodule YouSpeak.Groups do
   @spec update(integer(), Update.map()) :: Update.ok_group_or_error_changeset()
   def update(group_id, params), do: Update.call(group_id, params)
 
-  @spec delete(Delete.group()) :: Delete.ok_group_or_error_changeset
+  @spec delete(Delete.group()) :: Delete.ok_group_or_error_changeset()
   def delete(group), do: Delete.call(group)
 end
