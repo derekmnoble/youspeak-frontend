@@ -9,9 +9,9 @@ defmodule YouSpeak.Groups.UseCases.Get do
   alias YouSpeak.Repo
 
   @type params() :: %{
-    group_id: integer(),
-    teacher_id: integer()
-  }
+          group_id: integer(),
+          teacher_id: integer()
+        }
 
   @type group_or_nil :: YouSpeak.Teachers.Schemas.Group | nil
 
