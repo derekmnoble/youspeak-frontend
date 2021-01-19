@@ -6,6 +6,7 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
   import Ecto.Query, warn: false
 
   alias YouSpeak.Groups.Schemas.Group
+  alias YouSpeak.Repo
 
   @type groups_or_empty :: [YouSpeak.Groups.Schemas.Group] | []
 
@@ -22,8 +23,7 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
 
   @spec call(integer()) :: groups_or_empty
   def call(teacher_id) do
-    query = from(group in Group, where: group.teacher_id == ^teacher_id)
-
-    YouSpeak.Repo.all(query)
+    from(group in Group, where: group.teacher_id == ^teacher_id)
+    |> Repo.all()
   end
 end

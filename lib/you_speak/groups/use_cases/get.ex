@@ -8,21 +8,30 @@ defmodule YouSpeak.Groups.UseCases.Get do
   alias YouSpeak.Groups.Schemas.Group
   alias YouSpeak.Repo
 
+  @type params() :: %{
+    group_id: integer(),
+    teacher_id: integer()
+  }
+
   @type group_or_nil :: YouSpeak.Teachers.Schemas.Group | nil
 
   @doc """
   Gets a given group by its ID
 
-      iex> YouSpeak.Groups.UseCases.Get.call(1)
+      iex> YouSpeak.Groups.UseCases.Get.call(%{group_id: 1, teacher_id: 22})
       iex> %YouSpeak.Groups.Schemas.Group{}
 
       Params:
 
-      - group_id
+      - params: %{group_id: 1, teacher_id: 2}
   """
 
-  @spec call(integer()) :: group_or_nil
-  def call(group_id) do
-    Repo.get(Group, group_id)
+  @spec call(params()) :: group_or_nil
+  def call(%{group_id: group_id, teacher_id: teacher_id}) do
+    from(
+      group in Group,
+      where: group.id == ^group_id and group.teacher_id == ^teacher_id
+    )
+    |> Repo.one()
   end
 end

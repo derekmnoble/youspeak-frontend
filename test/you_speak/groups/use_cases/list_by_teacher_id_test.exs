@@ -23,7 +23,8 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherIDTest do
 
     result = ListByTeacherID.call(teacher_one.id)
 
-    group_ids = Enum.map(result, fn result -> result.id end)
+    group_ids = Enum.map(result, fn(result) -> result.id end)
+    # group_ids = Enum.map(result, &(&1.id))
 
     assert group_one.id in group_ids
     assert group_two.id in group_ids
