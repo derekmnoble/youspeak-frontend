@@ -23,7 +23,10 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
 
   @spec call(integer()) :: groups_or_empty
   def call(teacher_id) do
-    from(group in Group, where: group.teacher_id == ^teacher_id)
+    from(
+      group in Group,
+      where: group.teacher_id == ^teacher_id
+    )
     |> Repo.all()
   end
 end

@@ -40,8 +40,13 @@ defmodule YouSpeak.Groups.UseCases.Update do
   """
 
   @spec call(integer(), params()) :: ok_group_or_error_changeset
-  def call(group_id, params) do
-    case Repo.get(Group, group_id) do
+  def call(group_id, %{teacher_id: teacher_id} = params) do
+    from(
+      group in Group,
+      where: group.id == ^group_id and group.teacher_id == ^teacher_id
+    )
+    |> Repo.one()
+    |> case do
       nil ->
         {:error, "invalid id"}
 
