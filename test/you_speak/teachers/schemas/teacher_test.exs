@@ -108,7 +108,7 @@ defmodule YouSpeak.Teachers.Schemas.TeacherTest do
 
       assert "has already been taken" in errors_on(other_changeset).namespace
 
-      {:ok, _} =
+      {:ok, _schema} =
         teacher_factory(%{namespace: "test namespace"})
         |> Teacher.changeset(%{})
         |> Repo.insert()
