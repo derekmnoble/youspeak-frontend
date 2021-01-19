@@ -54,6 +54,7 @@ defmodule YouSpeak.Groups.UseCases.UpdateTest do
   end
 
   test "call/2 with invalid record error" do
-    assert {:error, "invalid id"} = Update.call(999, %{name: "updated test", teacher_id: teacher_factory().id})
+    assert {:error, "invalid id"} =
+             Update.call(999, %{name: "updated test", teacher_id: teacher_factory().id})
   end
 end

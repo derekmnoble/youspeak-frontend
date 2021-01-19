@@ -9,9 +9,9 @@ defmodule YouSpeak.Groups.UseCases.Delete do
   alias YouSpeak.Repo
 
   @type params :: %{
-    group: Ecto.Schema.t(),
-    teacher_id: integer()
-  }
+          group: Ecto.Schema.t(),
+          teacher_id: integer()
+        }
 
   @type ok_group_or_error_changeset :: {:ok, Group} | {:error, %Ecto.Changeset{}}
 
@@ -36,6 +36,7 @@ defmodule YouSpeak.Groups.UseCases.Delete do
     |> case do
       nil ->
         {:error, %Ecto.Changeset{errors: [teacher_id: "invalid teacher_id"]}}
+
       group ->
         Repo.delete(group)
     end
