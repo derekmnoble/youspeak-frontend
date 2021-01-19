@@ -11,13 +11,14 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
   Params used to create new record
   """
   @type params() :: %{
-    name: String.t(),
-    namespace: String.t(),
-    description: String.t(),
-    url: String.t()
-  }
+          name: String.t(),
+          namespace: String.t(),
+          description: String.t(),
+          url: String.t()
+        }
 
-  @type ok_teacher_or_error_changeset :: {:ok, YouSpeak.Teachers.Schemas.Teacher} | {:error, %Ecto.Changeset{}}
+  @type ok_teacher_or_error_changeset ::
+          {:ok, YouSpeak.Teachers.Schemas.Teacher} | {:error, %Ecto.Changeset{}}
 
   @doc """
   Inserts a new teacher in the database or raise an error
@@ -32,6 +33,7 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
 
   @spec call(params()) :: ok_teacher_or_error_changeset
   def call(params) when map_size(params) == 0, do: {:error, "error"}
+
   def call(params) do
     %Teacher{}
     |> Teacher.changeset(params)

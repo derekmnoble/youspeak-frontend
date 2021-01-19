@@ -20,6 +20,16 @@ defmodule YouSpeak.Factory do
     }
   end
 
+  def build(:group) do
+    %YouSpeak.Groups.Schemas.Group{
+      name: "name-#{System.unique_integer()}",
+      description: "description #{System.unique_integer()}",
+      activated_at: ~N[2020-12-01 12:00:00],
+      inactivated_at: nil,
+      teacher_id: __MODULE__.build(:teacher).id
+    }
+  end
+
   def build(factory_name, attributes) do
     factory_name
     |> build()

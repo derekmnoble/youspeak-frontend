@@ -36,7 +36,9 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
     assert html_response(conn, 200) =~ "Complete your registration"
   end
 
-  test "GET /teachers/registration/new redirect to page_path when teacher already exists", %{conn: conn} do
+  test "GET /teachers/registration/new redirect to page_path when teacher already exists", %{
+    conn: conn
+  } do
     teacher_factory(%{user_id: conn.assigns[:user].id})
 
     conn = get(conn, Routes.registration_path(conn, :new))

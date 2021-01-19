@@ -96,7 +96,7 @@ defmodule YouSpeak.Auth.Schemas.UserTest do
 
       assert "has already been taken" in errors_on(other_changeset).email
 
-      {:ok, _} =
+      {:ok, _schema} =
         user_factory(%{email: "other@email.com"})
         |> User.changeset(%{})
         |> Repo.insert()

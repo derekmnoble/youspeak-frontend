@@ -13,8 +13,8 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
   Params used to fetch record
   """
   @type params() :: %{
-    email: String.t()
-  }
+          email: String.t()
+        }
 
   @type ok_user_or_error_string :: {:ok, %YouSpeak.Auth.Schemas.User{}} | {:error, String.t()}
 
@@ -30,6 +30,7 @@ defmodule YouSpeak.Auth.UseCases.FindOrCreate do
   """
   @spec call(params()) :: ok_user_or_error_string
   def call(params) when map_size(params) == 0, do: {:error, "params is empty"}
+
   def call(params) do
     result =
       User

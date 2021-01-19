@@ -17,7 +17,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
       |> Map.merge(%{"user_id" => conn.assigns[:user].id})
 
     case YouSpeak.Teachers.registration(teacher_params) do
-      {:ok, _} ->
+      {:ok, _schema} ->
         conn
         |> put_flash(:info, "Registration completed!")
         |> redirect(to: Routes.page_path(conn, :index))
