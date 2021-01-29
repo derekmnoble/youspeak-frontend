@@ -18,8 +18,11 @@ defmodule YouSpeakWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
     get "/teachers/registration/new", Teachers.RegistrationController, :new
     post "/teachers/registration/", Teachers.RegistrationController, :create
+
+    resources "/groups", Groups.GroupController, only: [:new]
   end
 
   scope "/auth", YouSpeakWeb do
