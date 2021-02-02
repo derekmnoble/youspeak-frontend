@@ -11,15 +11,15 @@ defmodule YouSpeakWeb.Plugs.SetUserTest do
   end
 
   test "call/2 with user in sessions must assigns user to conn assings struct", %{conn: conn} do
-    user_data = user_factory()
+    user = user_factory()
 
     conn =
       conn
-      |> Plug.Test.init_test_session(user_id: user_data.id)
+      |> Plug.Test.init_test_session(user_id: user.id)
 
     assert %{assigns: %{user: user}} = SetUser.call(conn, %{})
 
-    assert user.id == user_data.id
+    assert user.id == user.id
   end
 
   test "call/2 without user in sessions must assigns NIL to conn assings struct", %{conn: conn} do

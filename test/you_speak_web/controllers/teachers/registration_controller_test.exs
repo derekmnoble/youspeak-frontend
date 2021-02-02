@@ -20,11 +20,11 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
   }
 
   setup %{conn: conn} do
-    user_data = user_factory()
+    user = user_factory()
 
     conn =
       conn
-      |> Plug.Test.init_test_session(user_id: user_data.id)
+      |> Plug.Test.init_test_session(user_id: user.id)
       |> YouSpeakWeb.Plugs.SetUser.call(%{})
 
     {:ok, conn: conn}

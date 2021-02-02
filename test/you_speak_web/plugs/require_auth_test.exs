@@ -11,11 +11,11 @@ defmodule YouSpeakWeb.Plugs.RequireAuthTest do
   end
 
   test "call/2 with a user in assign struct must forward the conn request", %{conn: conn} do
-    user_data = user_factory()
+    user = user_factory()
 
     conn =
       conn
-      |> assign(:user, user_data)
+      |> assign(:user, user)
 
     assert conn == RequireAuth.call(conn, %{})
   end

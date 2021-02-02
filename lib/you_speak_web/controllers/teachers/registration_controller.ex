@@ -27,7 +27,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
     end
   end
 
-  defp redirect_to_page_path_if_teacher_already_exists(conn, _) do
+  defp redirect_to_page_path_if_teacher_already_exists(conn, _params) do
     if YouSpeak.Teachers.find_by_user_id(conn.assigns[:user].id) do
       conn
       |> redirect(to: Routes.page_path(conn, :index))
