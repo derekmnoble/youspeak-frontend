@@ -3,13 +3,11 @@
 <ul class="collection">
   <%= for group <- @groups do %>
     <li class="collection-item">
-      <%= link group.name %>
+      <%= link group.name, to: "" %>
     </li>
   <% end %>
 </ul>
 
 <div class="fixed-action-btn">
-  <%= link to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" do %>
-    <i class="material-icons">Add</i>
-  <% end %>
+  <%= link "Add", to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" %>
 </div>

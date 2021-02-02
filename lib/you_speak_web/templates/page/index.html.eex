@@ -1,3 +1,13 @@
 <section class="phx-hero">
   <p>PageController#index</p>
 </section>
+
+<ul>
+  <li>
+    <%= link "Add group", to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" %>
+  </li>
+
+  <li>
+    <%= link "List group", to: Routes.group_path(@conn, :index), class: "btn-floating btn-large waves-effect waves-light red" %>
+  </li>
+</ul>
