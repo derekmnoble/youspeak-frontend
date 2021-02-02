@@ -5,12 +5,26 @@ defmodule YouSpeakWeb.Teachers.RegistrationController do
   plug YouSpeakWeb.Plugs.RequireAuth when action in [:new]
   plug :redirect_to_page_path_if_teacher_already_exists when action in [:new]
 
+  @doc """
+  Build a new changeset to create a new teacher
+
+  ## Parameters
+      - conn: The connection
+      - params: The params are ignored
+  """
   def new(conn, _params) do
     changeset = Teacher.changeset(%Teacher{}, %{user_id: conn.assigns[:user].id})
 
     render(conn, "new.html", changeset: changeset)
   end
 
+  @doc """
+  Create a new teacher
+
+  ## Parameters
+      - conn: The connection
+      - params: The params will be data for create a new teacher
+  """
   def create(conn, %{"teacher" => teacher_params}) do
     teacher_params =
       teacher_params

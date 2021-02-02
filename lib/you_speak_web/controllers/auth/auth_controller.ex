@@ -2,6 +2,13 @@ defmodule YouSpeakWeb.Auth.AuthController do
   use YouSpeakWeb, :controller
   plug Ueberauth
 
+  @doc """
+  Callback for a given OAuth resource
+
+  ## Parameters
+      - conn: The connection
+      - params: The params provided by the callback
+  """
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
     user_params = %{
       token: auth.credentials.token,
@@ -23,6 +30,13 @@ defmodule YouSpeakWeb.Auth.AuthController do
     end
   end
 
+  @doc """
+  Sign out the user
+
+  ## Parameters
+      - conn: The connection
+      - params: The params are ignored
+  """
   def signout(conn, _params) do
     conn
     |> configure_session(drop: true)
