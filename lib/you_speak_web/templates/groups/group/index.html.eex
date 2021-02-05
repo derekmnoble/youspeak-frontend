@@ -3,7 +3,7 @@
 <ul class="collection">
   <%= for group <- @groups do %>
     <li class="collection-item">
-      <%= link group.name, to: "" %>
+      <%= link group.name, to: Routes.group_path(@conn, :show, group) %>
     </li>
   <% end %>
 </ul>

@@ -55,12 +55,12 @@ defmodule YouSpeakWeb.Groups.GroupController do
     end
   end
 
-  @doc """
-  Get the current teacher logged in the app based on the current user
+  def show(conn, %{"id" => id}) do
+    group = YouSpeak.Groups.get(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
 
-  ## Parameters
-      - conn: The connection
-  """
+    render(conn, "show.html", group: group)
+  end
+
   defp get_teacher_by_user_id(conn) do
     YouSpeak.Teachers.find_by_user_id(conn.assigns[:user].id)
   end
