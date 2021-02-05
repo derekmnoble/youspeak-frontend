@@ -64,5 +64,12 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
 
       assert html_response(conn, 200) =~ group.name
     end
+
+    # test "with invalid id must raise 404", %{conn: conn} do
+    #   group = group_factory()
+    #   conn = get(conn, Routes.group_path(conn, :show, group))
+    #
+    #   assert html_response(conn, 200) =~ group.name
+    # end
   end
 end
