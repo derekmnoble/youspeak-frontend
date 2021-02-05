@@ -58,18 +58,30 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
   end
 
   describe "GET /groups/1" do
-    test "with valid id must return a group", %{conn: conn, teacher: teacher} do
+    test "with valid id must open show template with group", %{conn: conn, teacher: teacher} do
       group = group_factory(%{teacher_id: teacher.id})
       conn = get(conn, Routes.group_path(conn, :show, group))
 
       assert html_response(conn, 200) =~ group.name
+      assert html_response(conn, 200) =~ "Group details"
     end
 
+    # TODO: add test
     # test "with invalid id must raise 404", %{conn: conn} do
     #   group = group_factory()
     #   conn = get(conn, Routes.group_path(conn, :show, group))
     #
     #   assert html_response(conn, 200) =~ group.name
     # end
+  end
+
+  describe "GET /groups/1/edit" do
+    test "with valid id must open edit template with group", %{conn: conn, teacher: teacher} do
+      group = group_factory(%{teacher_id: teacher.id})
+      conn = get(conn, Routes.group_path(conn, :edit, group))
+
+      assert html_response(conn, 200) =~ group.name
+      assert html_response(conn, 200) =~ "Edit group"
+    end
   end
 end

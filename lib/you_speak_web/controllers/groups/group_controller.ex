@@ -29,7 +29,7 @@ defmodule YouSpeakWeb.Groups.GroupController do
   def new(conn, _params) do
     changeset = Group.changeset(%Group{}, %{})
 
-    render(conn, "new.html", group: changeset)
+    render(conn, "new.html", changeset: changeset)
   end
 
   @doc """
@@ -51,22 +51,38 @@ defmodule YouSpeakWeb.Groups.GroupController do
         |> redirect(to: Routes.group_path(conn, :index))
 
       {:error, changeset} ->
-        render(conn, "new.html", group: changeset)
+        render(conn, "new.html", changeset: changeset)
     end
   end
 
   @doc """
-  Gets a given group
+  Gets a given group and show details
 
   ## Parameters
       - conn: The connection
       - params: The params will be data to get a group
   """
   # TODO: add 404 behavior
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}, template \\ "show.html") do
     group = YouSpeak.Groups.get(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
 
-    render(conn, "show.html", group: group)
+    render(conn, template, group: group)
+  end
+
+  @doc """
+  Gets a given group and open form to edit
+
+  ## Parameters
+      - conn: The connection
+      - params: The params will be data to get a group
+  """
+  # TODO: add 404 behavior
+  def edit(conn, %{"id" => id}) do
+    group = YouSpeak.Groups.get(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+
+    changeset = Group.changeset(group, %{})
+
+    render(conn, "edit.html", changeset: changeset, group: group)
   end
 
   defp get_teacher_by_user_id(conn) do
