@@ -64,8 +64,9 @@ defmodule YouSpeakWeb.Groups.GroupController do
   """
   def show(conn, %{"id" => id}) do
     group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
-
     render(conn, "show.html", group: group)
+  rescue Ecto.NoResultsError ->
+    render_not_found(conn)
   end
 
   @doc """
@@ -85,5 +86,12 @@ defmodule YouSpeakWeb.Groups.GroupController do
 
   defp get_teacher_by_user_id(conn) do
     YouSpeak.Teachers.find_by_user_id(conn.assigns[:user].id)
+  end
+
+  defp render_not_found(conn) do
+    conn
+      |> put_status(:not_found)
+      |> put_view(YouSpeakWeb.ErrorView)
+      |> render("404.html")
   end
 end
