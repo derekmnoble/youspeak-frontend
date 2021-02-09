@@ -25,7 +25,6 @@ defmodule YouSpeak.Groups.UseCases.Get do
 
       - params: %{group_id: 1, teacher_id: 2}
   """
-
   @spec call(params()) :: group_or_nil
   def call(%{group_id: group_id, teacher_id: teacher_id}) do
     from(

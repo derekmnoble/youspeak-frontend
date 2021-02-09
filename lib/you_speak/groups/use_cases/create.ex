@@ -11,7 +11,6 @@ defmodule YouSpeak.Groups.UseCases.Create do
   @typedoc """
   Params used to create new record
   """
-
   @type params :: %{
           name: String.t(),
           description: String.t() | nil,
@@ -23,7 +22,6 @@ defmodule YouSpeak.Groups.UseCases.Create do
   @typedoc """
   Retuned typespec for given function
   """
-
   @type ok_group_or_error_changeset ::
           {:ok, YouSpeak.Teachers.Schemas.Group} | {:error, %Ecto.Changeset{}}
 
@@ -37,7 +35,6 @@ defmodule YouSpeak.Groups.UseCases.Create do
 
       - params: Map with attributes (name, teacher_id are required)
   """
-
   @spec call(params()) :: ok_group_or_error_changeset
   def call(params) do
     %Group{}

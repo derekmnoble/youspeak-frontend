@@ -13,7 +13,6 @@ defmodule YouSpeak.Teachers.UseCases.FindByUserID do
       iex> YouSpeak.Teachers.UseCases.FindByUserID.call(1)
       iex> nil
   """
-
   @spec call(integer()) :: YouSpeak.Teachers.Schemas.Teacher | nil
   def call(user_id) do
     YouSpeak.Repo.get_by(Teacher, user_id: user_id)

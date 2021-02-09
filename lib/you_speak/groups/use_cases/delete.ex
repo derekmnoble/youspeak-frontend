@@ -25,7 +25,6 @@ defmodule YouSpeak.Groups.UseCases.Delete do
 
       - group struct
   """
-
   @spec call(params(), integer()) :: ok_group_or_error_changeset
   def call(group, teacher_id) do
     from(

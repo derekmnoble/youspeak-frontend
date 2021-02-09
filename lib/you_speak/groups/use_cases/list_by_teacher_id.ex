@@ -20,7 +20,6 @@ defmodule YouSpeak.Groups.UseCases.ListByTeacherID do
 
       - teacher_id
   """
-
   @spec call(integer()) :: groups_or_empty
   def call(teacher_id) do
     from(

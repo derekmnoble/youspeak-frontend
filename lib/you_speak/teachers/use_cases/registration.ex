@@ -30,7 +30,6 @@ defmodule YouSpeak.Teachers.UseCases.Registration do
       iex> YouSpeak.Teachers.UseCases.Registration.call(%{name: "Test", Namespace: "Test"})
       iex> %YouSpeak.Teachers.Schemas.Teacher{}
   """
-
   @spec call(params()) :: ok_teacher_or_error_changeset
   def call(params) when map_size(params) == 0, do: {:error, "error"}
 

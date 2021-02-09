@@ -23,7 +23,6 @@ defmodule YouSpeak.Groups.UseCases.Update do
   @typedoc """
   Retuned typespec for given function
   """
-
   @type ok_group_or_error_changeset ::
           {:ok, YouSpeak.Teachers.Schemas.Group} | {:error, %Ecto.Changeset{}}
 
@@ -38,7 +37,6 @@ defmodule YouSpeak.Groups.UseCases.Update do
       - group_id: id to be updated
       - params: Map with attributes (name, teacher_id are required)
   """
-
   @spec call(integer(), params()) :: ok_group_or_error_changeset
   def call(group_id, %{teacher_id: teacher_id} = params) do
     from(
