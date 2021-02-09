@@ -11,8 +11,8 @@ defmodule YouSpeak.Groups do
   @spec list_by_teacher_id(integer()) :: ListByTeacherID.groups_or_empty()
   def list_by_teacher_id(params), do: ListByTeacherID.call(params)
 
-  @spec get(Get.params()) :: Get.group_or_nil()
-  def get(params), do: Get.call(params)
+  @spec get!(Get.params()) :: Get.group_or_exception()
+  def get!(params), do: Get.call(params)
 
   @spec update(integer(), Update.params()) :: Update.ok_group_or_error_changeset()
   def update(group_id, params), do: Update.call(group_id, params)

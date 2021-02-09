@@ -66,13 +66,13 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
       assert html_response(conn, 200) =~ "Group details"
     end
 
-    # TODO: add test
-    # test "with invalid id must raise 404", %{conn: conn} do
-    #   group = group_factory()
-    #   conn = get(conn, Routes.group_path(conn, :show, group))
-    #
-    #   assert html_response(conn, 200) =~ group.name
-    # end
+    test "with invalid id must raise 404", %{conn: conn} do
+      group = group_factory()
+
+      assert_raise Ecto.NoResultsError, fn ->
+        get(conn, Routes.group_path(conn, :show, group))
+      end
+    end
   end
 
   describe "GET /groups/1/edit" do
@@ -82,6 +82,14 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
 
       assert html_response(conn, 200) =~ group.name
       assert html_response(conn, 200) =~ "Edit group"
+    end
+
+    test "with invalid id must raise 404", %{conn: conn} do
+      group = group_factory()
+
+      assert_raise Ecto.NoResultsError, fn ->
+        get(conn, Routes.group_path(conn, :show, group))
+      end
     end
   end
 end

@@ -4,7 +4,7 @@ defmodule YouSpeak.Groups.UseCases.GetTest do
   alias YouSpeak.Factory
   alias YouSpeak.Groups.UseCases.Get
 
-  doctest YouSpeak.Groups.UseCases.Get
+  # doctest YouSpeak.Groups.UseCases.Get
 
   def teacher_factory(attributes \\ %{}), do: Factory.insert!(:teacher, attributes)
   def group_factory(attributes \\ %{}), do: Factory.insert!(:group, attributes)
@@ -19,6 +19,8 @@ defmodule YouSpeak.Groups.UseCases.GetTest do
   end
 
   test "call/1 with invalid group returns nil" do
-    assert is_nil(Get.call(%{group_id: 999_999, teacher_id: teacher_factory().id}))
+    assert_raise Ecto.NoResultsError, fn ->
+      Get.call(%{group_id: 999_999, teacher_id: teacher_factory().id})
+    end
   end
 end

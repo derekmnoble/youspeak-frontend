@@ -13,7 +13,7 @@ defmodule YouSpeak.Groups.UseCases.Get do
           teacher_id: integer()
         }
 
-  @type group_or_nil :: YouSpeak.Teachers.Schemas.Group | nil
+  @type group_or_exception :: YouSpeak.Teachers.Schemas.Group | Ecto.NoResultsError
 
   @doc """
   Gets a given group by its ID
@@ -25,12 +25,12 @@ defmodule YouSpeak.Groups.UseCases.Get do
 
       - params: %{group_id: 1, teacher_id: 2}
   """
-  @spec call(params()) :: group_or_nil
+  @spec call(params()) :: group_or_exception
   def call(%{group_id: group_id, teacher_id: teacher_id}) do
     from(
       group in Group,
       where: group.id == ^group_id and group.teacher_id == ^teacher_id
     )
-    |> Repo.one()
+    |> Repo.one!()
   end
 end

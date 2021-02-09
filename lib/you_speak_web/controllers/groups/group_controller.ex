@@ -62,11 +62,10 @@ defmodule YouSpeakWeb.Groups.GroupController do
       - conn: The connection
       - params: The params will be data to get a group
   """
-  # TODO: add 404 behavior
-  def show(conn, %{"id" => id}, template \\ "show.html") do
-    group = YouSpeak.Groups.get(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+  def show(conn, %{"id" => id}) do
+    group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
 
-    render(conn, template, group: group)
+    render(conn, "show.html", group: group)
   end
 
   @doc """
@@ -76,9 +75,8 @@ defmodule YouSpeakWeb.Groups.GroupController do
       - conn: The connection
       - params: The params will be data to get a group
   """
-  # TODO: add 404 behavior
   def edit(conn, %{"id" => id}) do
-    group = YouSpeak.Groups.get(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+    group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
 
     changeset = Group.changeset(group, %{})
 
