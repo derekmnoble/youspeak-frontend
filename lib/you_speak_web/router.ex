@@ -22,7 +22,7 @@ defmodule YouSpeakWeb.Router do
     get "/teachers/registration/new", Teachers.RegistrationController, :new
     post "/teachers/registration/", Teachers.RegistrationController, :create
 
-    resources "/groups", Groups.GroupController, only: [:new, :create, :index, :show, :edit]
+    resources "/groups", Groups.GroupController, except: [:delete]
   end
 
   scope "/auth", YouSpeakWeb do

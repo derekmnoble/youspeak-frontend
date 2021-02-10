@@ -50,7 +50,7 @@ defmodule YouSpeakWeb.Groups.GroupController do
         |> put_flash(:info, "Group created!")
         |> redirect(to: Routes.group_path(conn, :index))
 
-      {:error, changeset} ->
+      {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
   end
@@ -81,6 +81,35 @@ defmodule YouSpeakWeb.Groups.GroupController do
     group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
     changeset = Group.changeset(group, %{})
     render(conn, "edit.html", changeset: changeset, group: group)
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
+  end
+
+  @doc """
+  Updates a given group
+
+  ## Parameters
+
+    - conn: The connection
+    - params: The params to update a group
+  """
+  def update(conn, %{"id" => id, "group" => group_params}) do
+    group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+
+    group_params =
+      group_params
+      |> Map.merge(%{"teacher_id" => get_teacher_by_user_id(conn).id})
+      |> YouSpeak.Map.keys_to_atoms()
+
+    case YouSpeak.Groups.update(id, group_params) do
+      {:ok, _schema} ->
+        conn
+        |> put_flash(:info, "Group updated")
+        |> redirect(to: Routes.group_path(conn, :index))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", changeset: changeset, group: group)
+    end
   rescue
     Ecto.NoResultsError ->
       render_not_found(conn)

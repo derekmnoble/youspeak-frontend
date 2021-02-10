@@ -88,4 +88,40 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
       assert html_response(conn, 404)
     end
   end
+
+  describe "PUT /topics/ID" do
+    test "with valid data must update the group data and redirect to index", %{conn: conn, teacher: teacher} do
+      group = group_factory(%{teacher_id: teacher.id})
+      params = %{name: "Other name"}
+
+      conn = put(conn, Routes.group_path(conn, :update, group), group: params)
+
+      assert get_flash(conn, :info) == "Group updated"
+      assert redirected_to(conn) == Routes.group_path(conn, :index)
+    end
+
+    # test "with invalid data must not update topic and stay in form", %{conn: conn} do
+    #   topic = topic_factory(%{user: conn.assigns.user})
+    #
+    #   conn = put(conn, topic_path(conn, :update, topic), topic: @invalid_params)
+    #
+    #   assert html_response(conn, 200) =~ "Edit Topic"
+    # end
+    #
+    # test "redirect to root when current user is not topic owner", %{conn: conn} do
+    #   user_one = user_factory()
+    #   user_two = user_factory()
+    #   topic = topic_factory(%{user: user_one})
+    #
+    #   conn =
+    #     conn
+    #     |> Plug.Test.init_test_session(user_id: user_two.id)
+    #     |> DiscussWeb.Plugs.SetUser.call(%{})
+    #     |> put(topic_path(conn, :update, topic), topic: @valid_params)
+    #
+    #   assert get_flash(conn, :error) == "You're not the owner of this topic!"
+    #   assert redirected_to(conn) == topic_path(conn, :index)
+    #   assert conn.halted()
+    # end
+  end
 end

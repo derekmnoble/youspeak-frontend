@@ -1,12 +1,23 @@
 <h5>Listing groups</h5>
 
-<ul class="collection">
-  <%= for group <- @groups do %>
-    <li class="collection-item">
-      <%= link group.name, to: Routes.group_path(@conn, :show, group) %>
-    </li>
-  <% end %>
-</ul>
+<table class="centered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Details</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for group <- @groups do %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= link "Details", to: Routes.group_path(@conn, :show, group) %></td>
+        <td><%= link "Edit", to: Routes.group_path(@conn, :edit, group) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="fixed-action-btn">
   <%= link "Add", to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" %>
