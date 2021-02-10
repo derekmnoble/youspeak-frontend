@@ -12,15 +12,16 @@
     <header>
       <section class="container">
         <ul class="right">
-         <%= if @conn.assigns[:user] do %>
-           <li>
-             <%= link "Sign out", to: Routes.auth_path(@conn, :signout) %>
-           </li>
-         <% else %>
-           <li>
-             <%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google") %>
-           </li>
-         <% end %>
+          <li><%= link "Home", to: Routes.page_path(@conn, :index) %></li>
+          <%= if @conn.assigns[:user] do %>
+            <li>
+              <%= link "Sign out", to: Routes.auth_path(@conn, :signout) %>
+            </li>
+          <% else %>
+            <li>
+              <%= link "Sign in with Google", to: Routes.auth_path(@conn, :request, "google") %>
+            </li>
+          <% end %>
        </ul>
       </section>
     </header>

@@ -1,5 +1,5 @@
 <section class="phx-hero">
-  <p>PageController#index</p>
+  <p>Add google button</p>
 </section>
 
 <%= if @conn.assigns[:user] do %>
