@@ -5,7 +5,7 @@ defmodule YouSpeakWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(ErrorView)
-    |> render("404.html")
+    |> render(:"404")
   end
 
   # def call(conn, {:error, :unauthorized}) do
