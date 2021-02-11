@@ -1,5 +1,7 @@
 <section class="phx-hero">
-  <p>Add google button</p>
+  <p>
+    <%= link "Sign in with Google", class: "button", to: Routes.auth_path(@conn, :request, "google") %>
+  </p>
 </section>
 
 <%= if @conn.assigns[:user] do %>
