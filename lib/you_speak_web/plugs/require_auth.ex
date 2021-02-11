@@ -1,4 +1,8 @@
 defmodule YouSpeakWeb.Plugs.RequireAuth do
+  @moduledoc """
+  RequireAuth plugs is used to check in every request if the user is being set, otherwise will
+  deny access to the action
+  """
   import Plug.Conn
   import Phoenix.Controller
 

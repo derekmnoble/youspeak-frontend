@@ -107,6 +107,7 @@ defmodule YouSpeakWeb.Groups.GroupController do
         conn
         |> put_flash(:info, "Group updated")
         |> redirect(to: Routes.group_path(conn, :index))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", changeset: changeset, group: group)
     end

@@ -90,7 +90,10 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
   end
 
   describe "PUT /topics/ID" do
-    test "with valid data must update the group data and redirect to index", %{conn: conn, teacher: teacher} do
+    test "with valid data must update the group data and redirect to index", %{
+      conn: conn,
+      teacher: teacher
+    } do
       group = group_factory(%{teacher_id: teacher.id})
       params = %{name: "Other name"}
 

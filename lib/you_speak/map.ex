@@ -32,6 +32,7 @@ defmodule YouSpeak.Map do
   def keys_to_atoms(%DateTime{} = value), do: value
   def keys_to_atoms(%Date{} = value), do: value
   def keys_to_atoms(%Time{} = value), do: value
+
   def keys_to_atoms(string_key_map) when is_map(string_key_map) do
     for {key, val} <- string_key_map, into: %{} do
       if is_binary(key) do
@@ -41,6 +42,6 @@ defmodule YouSpeak.Map do
       end
     end
   end
-  def keys_to_atoms(value), do: value
 
+  def keys_to_atoms(value), do: value
 end

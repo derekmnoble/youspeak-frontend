@@ -1,4 +1,8 @@
 defmodule YouSpeak.Factory do
+  @moduledoc """
+  Enables to create factories in tests
+  """
+
   alias YouSpeak.Repo
 
   def build(:user) do

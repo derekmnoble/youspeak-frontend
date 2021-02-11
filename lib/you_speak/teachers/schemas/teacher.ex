@@ -1,4 +1,7 @@
 defmodule YouSpeak.Teachers.Schemas.Teacher do
+  @moduledoc """
+  Teacher schema
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

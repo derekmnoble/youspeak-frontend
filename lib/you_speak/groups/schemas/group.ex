@@ -1,4 +1,8 @@
 defmodule YouSpeak.Groups.Schemas.Group do
+  @moduledoc """
+  Group schema
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
