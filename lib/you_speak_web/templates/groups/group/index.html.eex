@@ -20,5 +20,5 @@
 </table>
 
 <div class="fixed-action-btn">
-  <%= link "Add", to: Routes.group_path(@conn, :new), class: "button left" %>
+  <%= link "Add", to: Routes.group_path(@conn, :new), class: "button" %>
 </div>

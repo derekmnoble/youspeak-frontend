@@ -1,9 +1,7 @@
 <h1>Group details</h1>
 
 <%= tag(:input, type: "text", value: @group.name, disabled: true)%>
-<textarea rows="4" cols="50" disabled="disabled">
-  <%= @group.description %>
-</textarea>
+<%= tag(:input, type: "text", value: @group.description, disabled: true)%>
 
 <div class="fixed-action-btn">
   <%= link "Back", to: Routes.group_path(@conn, :index), class: "button left" %>

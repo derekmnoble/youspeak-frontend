@@ -13,5 +13,5 @@
   <%= text_input f, :description, placeholder: "Description", class: "form-control" %>
   <%= error_tag f, :description %>
 
-  <%= submit "Submit", class: "btn btn-primary" %>
+  <%= submit "Submit" %>
 <% end %>
