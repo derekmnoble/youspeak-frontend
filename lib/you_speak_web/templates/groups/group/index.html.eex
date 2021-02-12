@@ -20,5 +20,5 @@
 </table>
 
 <div class="fixed-action-btn">
-  <%= link "Add", to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" %>
+  <%= link "Add", to: Routes.group_path(@conn, :new), class: "button left" %>
 </div>
