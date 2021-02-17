@@ -43,7 +43,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
 
     conn = get(conn, Routes.registration_path(conn, :new))
 
-    assert redirected_to(conn) == Routes.page_path(conn, :index)
+    assert redirected_to(conn) == Routes.group_path(conn, :index)
   end
 
   describe "POST /teachers/registration" do
@@ -53,7 +53,7 @@ defmodule YouSpeakWeb.Teachers.RegistrationControllerTest do
       conn = post(conn, Routes.registration_path(conn, :create), teacher: @valid_params)
 
       assert get_flash(conn, :info) == "Registration completed!"
-      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      assert redirected_to(conn) == Routes.group_path(conn, :index)
     end
 
     test "with invalid data render errors and keep in the new page", %{conn: conn} do
