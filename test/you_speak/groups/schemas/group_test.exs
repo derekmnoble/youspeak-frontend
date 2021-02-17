@@ -97,4 +97,17 @@ defmodule YouSpeak.Groups.Schemas.GroupTest do
       refute is_nil(Ecto.Changeset.get_change(changeset, :inactivated_at))
     end
   end
+
+  test "return error when try to update the teacher_id" do
+    group = Factory.insert!(:group, %{teacher_id: Factory.insert!(:teacher).id})
+    new_teacher = Factory.insert!(:teacher)
+
+    {:ok, updated_group} =
+      group
+      |> Group.changeset(%{teacher_id: new_teacher.id})
+      |> Repo.update()
+
+    assert group.teacher_id == updated_group.teacher_id
+    refute group.teacher_id == new_teacher.id
+  end
 end

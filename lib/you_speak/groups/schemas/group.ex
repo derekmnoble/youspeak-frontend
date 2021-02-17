@@ -19,7 +19,6 @@ defmodule YouSpeak.Groups.Schemas.Group do
     timestamps()
   end
 
-  # TODO: test if the teacher_id is not allowed to be updated
   def changeset(%{id: id} = struct, attributes) when not is_nil(id) do
     struct
     |> cast(attributes, [:name, :description, :activated_at, :inactivated_at])
