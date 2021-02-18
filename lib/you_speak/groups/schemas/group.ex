@@ -57,6 +57,7 @@ defmodule YouSpeak.Groups.Schemas.Group do
     |> cast(%{activated_at: nil, inactivated_at: inactivated_at}, [:activated_at, :inactivated_at])
   end
 
+  # TODO: Needs to apply DRY
   defp slugify_name(%{changes: %{name: name} = changes} = group_changeset)
        when map_size(changes) > 0
        when not is_nil(name)

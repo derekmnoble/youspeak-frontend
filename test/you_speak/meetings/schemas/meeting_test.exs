@@ -78,4 +78,48 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
       assert "can't be blank" in errors_on(changeset).video_url
     end
   end
+
+  test "slugify name" do
+    changeset =
+      meeting_factory()
+      |> Meeting.changeset(%{name: "my name"})
+
+    assert Ecto.Changeset.get_field(changeset, :slug) == "my-name"
+
+    changeset =
+      meeting_factory()
+      |> Meeting.changeset(%{name: "my name    otherNAME"})
+
+    assert Ecto.Changeset.get_field(changeset, :slug) == "my-name-othername"
+
+    changeset =
+      meeting_factory()
+      |> Meeting.changeset(%{name: "1-my xpa c"})
+
+    assert Ecto.Changeset.get_field(changeset, :slug) == "1-my-xpa-c"
+  end
+
+  # test "name slug must be unique" do
+  #   schema =
+  #     Factory.insert!(:teacher, %{
+  #       name: "name-#{System.unique_integer()}",
+  #       name: "name",
+  #       description: "",
+  #       url: ""
+  #     })
+  #
+  #   other_schema = meeting_factory(%{name: schema.name})
+  #
+  #   {:error, other_changeset} =
+  #     other_schema
+  #     |> Meeting.changeset(%{})
+  #     |> Repo.insert()
+  #
+  #   assert "has already been taken" in errors_on(other_changeset).name
+  #
+  #   {:ok, _schema} =
+  #     meeting_factory(%{name: "test name"})
+  #     |> Meeting.changeset(%{})
+  #     |> Repo.insert()
+  # end
 end
