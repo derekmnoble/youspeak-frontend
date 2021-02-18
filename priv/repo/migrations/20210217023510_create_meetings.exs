@@ -3,7 +3,7 @@ defmodule YouSpeak.Repo.Migrations.CreateMeetings do
 
   def change do
     create table(:meetings) do
-      add :title, :string, null: false, limit: 200
+      add :name, :string, null: false, limit: 200
       add :description, :text
       add :video_url, :string, null: false
 

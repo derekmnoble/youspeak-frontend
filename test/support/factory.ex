@@ -34,6 +34,15 @@ defmodule YouSpeak.Factory do
     }
   end
 
+  def build(:meeting) do
+    %YouSpeak.Meetings.Schemas.Meeting{
+      name: "name-#{System.unique_integer()}",
+      description: "description-#{System.unique_integer()}",
+      video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84",
+      group_id: __MODULE__.build(:group).id
+    }
+  end
+
   def build(factory_name, attributes) do
     factory_name
     |> build()
