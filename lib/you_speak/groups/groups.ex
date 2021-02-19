@@ -3,7 +3,7 @@ defmodule YouSpeak.Groups do
   Groups bounded context contains all use cases available to the Groups context.
   """
 
-  alias YouSpeak.Groups.UseCases.{Create, Get, Update, Delete, ListByTeacherID}
+  alias YouSpeak.Groups.UseCases.{Create, Get, Update, Delete, ListByTeacherID, GetBySlug}
 
   @spec create(Create.params()) :: Create.ok_group_or_error_changeset()
   def create(params), do: Create.call(params)
@@ -19,4 +19,7 @@ defmodule YouSpeak.Groups do
 
   @spec delete(Delete.params(), integer()) :: Delete.ok_group_or_error_changeset()
   def delete(group, teacher_id), do: Delete.call(group, teacher_id)
+
+  @spec get_by_slug!(GetBySlug.params()) :: Get.group_or_exception
+  def get_by_slug!(params), do: GetBySlug.call(params)
 end
