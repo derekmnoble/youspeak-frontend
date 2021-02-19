@@ -2,6 +2,7 @@
 
 <%= tag(:input, type: "text", value: @group.name, disabled: true)%>
 <%= tag(:input, type: "text", value: @group.description, disabled: true)%>
+<%= tag(:input, type: "text", value: @group.slug, disabled: true)%>
 
 <div class="fixed-action-btn">
   <%= link "Back", to: Routes.group_path(@conn, :index), class: "button left" %>

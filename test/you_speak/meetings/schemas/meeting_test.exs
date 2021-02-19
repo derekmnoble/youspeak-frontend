@@ -99,27 +99,24 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
     assert Ecto.Changeset.get_field(changeset, :slug) == "1-my-xpa-c"
   end
 
-  # test "name slug must be unique" do
-  #   schema =
-  #     Factory.insert!(:teacher, %{
-  #       name: "name-#{System.unique_integer()}",
-  #       name: "name",
-  #       description: "",
-  #       url: ""
-  #     })
-  #
-  #   other_schema = meeting_factory(%{name: schema.name})
-  #
-  #   {:error, other_changeset} =
-  #     other_schema
-  #     |> Meeting.changeset(%{})
-  #     |> Repo.insert()
-  #
-  #   assert "has already been taken" in errors_on(other_changeset).name
-  #
-  #   {:ok, _schema} =
-  #     meeting_factory(%{name: "test name"})
-  #     |> Meeting.changeset(%{})
-  #     |> Repo.insert()
-  # end
+  test "name slug must be unique" do
+    params = %{name: "My name", description: "description", video_url: "video_url"}
+
+    {:ok, _schema} =
+      %Meeting{}
+      |> Meeting.changeset(params)
+      |> Repo.insert()
+
+    {:error, changeset} =
+      %Meeting{}
+      |> Meeting.changeset(params)
+      |> Repo.insert()
+
+    assert "has already been taken" in errors_on(changeset).slug
+
+    {:ok, _schema} =
+      meeting_factory(%{name: "test name"})
+      |> Meeting.changeset(%{})
+      |> Repo.insert()
+  end
 end

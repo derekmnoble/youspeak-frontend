@@ -31,8 +31,9 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
     |> cast(attributes, @required_fields)
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
-    |> unique_constraint(:group)
     |> slugify_name()
+    |> unique_constraint(:slug)
+    |> unique_constraint(:group)
   end
 
   # TODO: Needs to apply DRY

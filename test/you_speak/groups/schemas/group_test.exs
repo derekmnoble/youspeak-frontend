@@ -4,6 +4,7 @@ defmodule YouSpeak.Groups.Schemas.GroupTest do
   alias YouSpeak.Factory
   alias YouSpeak.Groups.Schemas.Group
 
+  def teacher_factory(attributes \\ %{}), do: Factory.insert!(:teacher, attributes)
   def group_factory(attributes \\ %{}), do: Factory.build(:group, attributes)
 
   test "return valid true when data is valid" do
@@ -131,27 +132,24 @@ defmodule YouSpeak.Groups.Schemas.GroupTest do
     assert Ecto.Changeset.get_field(changeset, :slug) == "1-my-xpa-c"
   end
 
-  # test "name slug must be unique" do
-  #   schema =
-  #     Factory.insert!(:teacher, %{
-  #       name: "name-#{System.unique_integer()}",
-  #       name: "name",
-  #       description: "",
-  #       url: ""
-  #     })
-  #
-  #   other_schema = group_factory(%{name: schema.name})
-  #
-  #   {:error, other_changeset} =
-  #     other_schema
-  #     |> Group.changeset(%{})
-  #     |> Repo.insert()
-  #
-  #   assert "has already been taken" in errors_on(other_changeset).name
-  #
-  #   {:ok, _schema} =
-  #     group_factory(%{name: "test name"})
-  #     |> Group.changeset(%{})
-  #     |> Repo.insert()
-  # end
+  test "name slug must be unique" do
+    params = %{name: "My name", description: "description"}
+
+    {:ok, _schema} =
+      %Group{}
+      |> Group.changeset(params)
+      |> Repo.insert()
+
+    {:error, changeset} =
+      %Group{}
+      |> Group.changeset(params)
+      |> Repo.insert()
+
+    assert "has already been taken" in errors_on(changeset).slug
+
+    {:ok, _schema} =
+      group_factory(%{name: "test name"})
+      |> Group.changeset(%{})
+      |> Repo.insert()
+  end
 end

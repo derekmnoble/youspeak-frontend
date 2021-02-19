@@ -32,8 +32,9 @@ defmodule YouSpeak.Groups.Schemas.Group do
     |> cast(attributes, [:name, :description, :teacher_id, :activated_at, :inactivated_at])
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
-    |> unique_constraint(:teacher)
     |> slugify_name()
+    |> unique_constraint(:slug)
+    |> unique_constraint(:teacher)
     |> activate()
   end
 
