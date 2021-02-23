@@ -5,7 +5,7 @@
     </p>
   </section>
 <%= else %>
-  <h1>Listing groups</h1>
+  <h2>Listing groups</h1>
 
   <table class="centered">
     <thead>

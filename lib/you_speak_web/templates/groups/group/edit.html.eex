@@ -1,4 +1,4 @@
-<h1>Edit group</h1>
+<h2>Edit group</h1>
 
 <%= form_for @changeset, Routes.group_path(@conn, :update, @group.id), fn f -> %>
   <%= if @changeset.action do %>

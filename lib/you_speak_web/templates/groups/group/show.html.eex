@@ -1,4 +1,4 @@
-<h1>Group details</h1>
+<h2>Group details</h1>
 
 <%= label(:group, :name) do %>
   Name
