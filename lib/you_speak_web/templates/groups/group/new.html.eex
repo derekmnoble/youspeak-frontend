@@ -10,7 +10,7 @@
   <%= text_input f, :name, placeholder: "Name", class: "form-control" %>
   <%= error_tag f, :name %>
 
-  <%= text_input f, :description, placeholder: "Description", class: "form-control" %>
+  <%= textarea f, :description, placeholder: "Description" %>
   <%= error_tag f, :description %>
 
   <%= submit "Submit" %>

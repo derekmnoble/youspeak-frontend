@@ -63,7 +63,7 @@ defmodule YouSpeakWeb.Groups.GroupController do
       - params: The params will be data to get a group
   """
   def show(conn, %{"id" => id}) do
-    group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+    group = YouSpeak.Groups.get_by_slug!(%{slug: id, teacher_id: get_teacher_by_user_id(conn).id})
     render(conn, "show.html", group: group)
   rescue
     Ecto.NoResultsError ->
@@ -78,7 +78,7 @@ defmodule YouSpeakWeb.Groups.GroupController do
       - params: The params will be data to get a group
   """
   def edit(conn, %{"id" => id}) do
-    group = YouSpeak.Groups.get!(%{group_id: id, teacher_id: get_teacher_by_user_id(conn).id})
+    group = YouSpeak.Groups.get_by_slug!(%{slug: id, teacher_id: get_teacher_by_user_id(conn).id})
     changeset = Group.changeset(group, %{})
     render(conn, "edit.html", changeset: changeset, group: group)
   rescue

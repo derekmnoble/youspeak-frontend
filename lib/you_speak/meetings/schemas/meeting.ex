@@ -52,3 +52,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
 
   defp slugify_name(changeset), do: changeset
 end
+
+defimpl Phoenix.Param, for: YouSpeak.Meetings.Schemas.Meeting do
+  def to_param(%{slug: slug}), do: "#{slug}"
+end

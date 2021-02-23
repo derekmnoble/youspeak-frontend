@@ -74,3 +74,7 @@ defmodule YouSpeak.Groups.Schemas.Group do
 
   defp slugify_name(changeset), do: changeset
 end
+
+defimpl Phoenix.Param, for: YouSpeak.Groups.Schemas.Group do
+  def to_param(%{slug: slug}), do: "#{slug}"
+end
