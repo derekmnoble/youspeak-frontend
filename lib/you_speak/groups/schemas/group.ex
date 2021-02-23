@@ -22,9 +22,10 @@ defmodule YouSpeak.Groups.Schemas.Group do
 
   def changeset(%{id: id} = struct, attributes) when not is_nil(id) do
     struct
-    |> cast(attributes, [:name, :description, :activated_at, :inactivated_at])
+    |> cast(attributes, [:name, :description, :activated_at, :inactivated_at, :slug])
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
+    |> slugify_name()
   end
 
   def changeset(%{id: id} = struct, attributes) when is_nil(id) do

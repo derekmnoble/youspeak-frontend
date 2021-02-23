@@ -152,4 +152,20 @@ defmodule YouSpeak.Groups.Schemas.GroupTest do
       |> Group.changeset(%{})
       |> Repo.insert()
   end
+
+  test "slugify when update group" do
+    params = %{name: "My name", description: "description"}
+
+    {:ok, group} =
+      %Group{}
+      |> Group.changeset(params)
+      |> Repo.insert()
+
+    {:ok, updated_group} =
+      group
+      |> Group.changeset(%{name: "updated name"})
+      |> Repo.update()
+
+    assert updated_group.slug == "updated-name"
+  end
 end
