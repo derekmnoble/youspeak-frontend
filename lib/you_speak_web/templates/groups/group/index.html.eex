@@ -1,23 +1,31 @@
-<h1>Listing groups</h1>
+<%= if @groups == [] do %>
+  <section class="phx-hero">
+    <p class="alert alert-info">
+      You have no groups yet.
+    </p>
+  </section>
+<%= else %>
+  <h1>Listing groups</h1>
 
-<table class="centered">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Details</th>
-      <th>Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for group <- @groups do %>
+  <table class="centered">
+    <thead>
       <tr>
-        <td><%= group.name %></td>
-        <td><%= link "Details", to: Routes.group_path(@conn, :show, group) %></td>
-        <td><%= link "Edit", to: Routes.group_path(@conn, :edit, group) %></td>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Edit</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <%= for group <- @groups do %>
+        <tr>
+          <td><%= group.name %></td>
+          <td><%= link "Details", to: Routes.group_path(@conn, :show, group) %></td>
+          <td><%= link "Edit", to: Routes.group_path(@conn, :edit, group) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <div class="fixed-action-btn">
   <%= link "Add", to: Routes.group_path(@conn, :new), class: "button" %>

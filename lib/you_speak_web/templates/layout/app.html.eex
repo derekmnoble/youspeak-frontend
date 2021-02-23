@@ -13,7 +13,7 @@
       <section class="container">
           <%= if @conn.assigns[:user] do %>
             <ul class="right">
-              <li><%= link "Home", to: Routes.page_path(@conn, :index) %></li>
+              <li><%= link "Home", to: Routes.group_path(@conn, :index) %></li>
               <li>
                 <%= link "Sign out", to: Routes.auth_path(@conn, :signout) %>
               </li>
