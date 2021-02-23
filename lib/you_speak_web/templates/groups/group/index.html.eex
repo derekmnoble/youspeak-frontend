@@ -13,6 +13,7 @@
         <th>Name</th>
         <th>Details</th>
         <th>Edit</th>
+        <th>Add Meeting</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
           <td><%= group.name %></td>
           <td><%= link "Details", to: Routes.group_path(@conn, :show, group) %></td>
           <td><%= link "Edit", to: Routes.group_path(@conn, :edit, group) %></td>
+          <td><%= link "Add Meeting", to: Routes.group_meeting_path(@conn, :new, group) %></td>
         </tr>
       <% end %>
     </tbody>
