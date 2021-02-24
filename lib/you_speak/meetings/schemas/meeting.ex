@@ -6,7 +6,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @required_fields [:name, :description, :video_url]
+  @required_fields [:name, :video_url]
 
   schema "meetings" do
     field :name, :string
@@ -28,7 +28,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
 
   def changeset(%{id: id} = struct, attributes) when is_nil(id) do
     struct
-    |> cast(attributes, @required_fields)
+    |> cast(attributes, [:name, :description, :video_url, :group_id])
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
     |> slugify_name()

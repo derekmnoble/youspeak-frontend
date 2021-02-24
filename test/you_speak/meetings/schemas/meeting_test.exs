@@ -42,24 +42,6 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
       assert "should be at most 200 character(s)" in errors_on(changeset).name
     end
 
-    test "description must not be blank" do
-      changeset =
-        meeting_factory()
-        |> Meeting.changeset(%{description: ""})
-
-      refute changeset.valid?
-      assert "can't be blank" in errors_on(changeset).description
-    end
-
-    test "description must not be nil" do
-      changeset =
-        meeting_factory()
-        |> Meeting.changeset(%{description: nil})
-
-      refute changeset.valid?
-      assert "can't be blank" in errors_on(changeset).description
-    end
-
     test "video_url must not be blank" do
       changeset =
         meeting_factory()
