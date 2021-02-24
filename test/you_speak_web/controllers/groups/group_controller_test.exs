@@ -30,17 +30,19 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
     {:ok, conn: conn, teacher: teacher}
   end
 
-  test "GET /groups with no groups show empty index", %{conn: conn} do
-    conn = get(conn, Routes.group_path(conn, :index))
+  describe "GET /groups" do
+    test "GET /groups with no groups show empty index", %{conn: conn} do
+      conn = get(conn, Routes.group_path(conn, :index))
 
-    assert html_response(conn, 200) =~ "You have no groups yet"
-  end
+      assert html_response(conn, 200) =~ "You have no groups yet"
+    end
 
-  test "GET /groups render groups", %{conn: conn, teacher: teacher} do
-    group_factory(%{teacher_id: teacher.id, slug: "myslug"})
-    conn = get(conn, Routes.group_path(conn, :index))
+    test "GET /groups render groups", %{conn: conn, teacher: teacher} do
+      group_factory(%{teacher_id: teacher.id, slug: "myslug"})
+      conn = get(conn, Routes.group_path(conn, :index))
 
-    assert html_response(conn, 200) =~ "Listing groups"
+      assert html_response(conn, 200) =~ "Listing groups"
+    end
   end
 
   test "GET /groups/new", %{conn: conn} do
