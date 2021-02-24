@@ -74,7 +74,11 @@ defmodule YouSpeakWeb.Groups.GroupControllerTest do
     end
 
     test "with invalid id must raise 404", %{conn: conn} do
-      conn = get(conn, Routes.group_path(conn, :show, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"}))
+      conn =
+        get(
+          conn,
+          Routes.group_path(conn, :show, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"})
+        )
 
       assert html_response(conn, 404)
     end
