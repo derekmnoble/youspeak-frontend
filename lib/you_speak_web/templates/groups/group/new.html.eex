@@ -13,5 +13,6 @@
   <%= textarea f, :description, placeholder: "Description" %>
   <%= error_tag f, :description %>
 
+  <%= link "Cancel", to: "/", class: "button" %>
   <%= submit "Submit" %>
 <% end %>
