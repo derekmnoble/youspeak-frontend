@@ -13,10 +13,10 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       - params: The params are ignored
   """
   def new(conn, %{"group_id" => slug}) do
-    if group = get_group_slug(conn, slug) do
+    if group = get_group_id_by_slug(conn, slug) do
       changeset = Meeting.changeset(%Meeting{}, %{})
 
-      render(conn, "new.html", changeset: changeset)
+      render(conn, "new.html", changeset: changeset, group: group)
     end
   rescue
     Ecto.NoResultsError ->
@@ -43,7 +43,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
           |> redirect(to: Routes.group_path(conn, :index))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "new.html", changeset: changeset)
+          render(conn, "new.html", changeset: changeset, group: group_id)
       end
     end
   rescue
@@ -51,7 +51,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       render_not_found(conn)
   end
 
-  defp get_group_slug(conn, slug) do
+  defp get_group_id_by_slug(conn, slug) do
     YouSpeak.Groups.get_by_slug!(%{slug: slug, teacher_id: conn.assigns[:teacher].id}).id
   end
 
