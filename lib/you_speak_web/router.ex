@@ -8,6 +8,7 @@ defmodule YouSpeakWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug YouSpeakWeb.Plugs.SetUser
+    plug YouSpeakWeb.Plugs.SetTeacher
   end
 
   pipeline :api do

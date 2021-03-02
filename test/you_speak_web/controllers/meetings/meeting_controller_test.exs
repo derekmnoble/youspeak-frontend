@@ -37,10 +37,22 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
     {:ok, conn: conn, teacher: teacher, group: group}
   end
 
-  test "GET /groups/:group_id/meetings/new", %{conn: conn, group: group} do
-    conn = get(conn, Routes.group_meeting_path(conn, :new, group))
+  describe "GET /groups/:group_id/meetings/new" do
+    test "renders meetings/new template given a valid group", %{conn: conn, group: group} do
+      conn = get(conn, Routes.group_meeting_path(conn, :new, group))
 
-    assert html_response(conn, 200) =~ "Add meeting"
+      assert html_response(conn, 200) =~ "Add meeting"
+    end
+
+    test "renders 404 given an invalid group", %{conn: conn} do
+      conn =
+        get(
+          conn,
+          Routes.group_meeting_path(conn, :new, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"}, meeting: @valid_params)
+        )
+
+      assert html_response(conn, 404)
+    end
   end
 
   describe "POST /groups/:group_id/meetings" do
@@ -57,7 +69,14 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
       assert html_response(conn, 200) =~ "Add meeting"
     end
 
-    @tag :skip
-    test "when group is not valid"
+    test "with invalid group_id must raise 404", %{conn: conn} do
+      conn =
+        post(
+          conn,
+          Routes.group_meeting_path(conn, :create, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"}, meeting: @valid_params)
+        )
+
+      assert html_response(conn, 404)
+    end
   end
 end

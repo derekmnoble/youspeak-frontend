@@ -12,10 +12,15 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       - conn: The connection
       - params: The params are ignored
   """
-  def new(conn, %{"group_id" => group_id}) do
-    changeset = Meeting.changeset(%Meeting{}, %{})
+  def new(conn, %{"group_id" => slug}) do
+    if group = get_group_slug(conn, slug) do
+      changeset = Meeting.changeset(%Meeting{}, %{})
 
-    render(conn, "new.html", changeset: changeset, group_id: group_id)
+      render(conn, "new.html", changeset: changeset)
+    end
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
   end
 
   @doc """
@@ -26,30 +31,39 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       - params: The params will be data for create a new group
   """
   def create(conn, %{"group_id" => group_id, "meeting" => meeting_params}) do
-    meeting_params =
-      meeting_params
-      |> Map.merge(%{"group_id" => group_id})
+    if get_group_id(conn, group_id) do
+      meeting_params =
+        meeting_params
+        |> Map.merge(%{"group_id" => group_id})
 
-    case YouSpeak.Meetings.create(meeting_params) do
-      {:ok, _schema} ->
-        conn
-        |> put_flash(:info, "Meeting created!")
-        |> redirect(to: Routes.group_path(conn, :index))
+      case YouSpeak.Meetings.create(meeting_params) do
+        {:ok, _schema} ->
+          conn
+          |> put_flash(:info, "Meeting created!")
+          |> redirect(to: Routes.group_path(conn, :index))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        {:error, %Ecto.Changeset{} = changeset} ->
+          render(conn, "new.html", changeset: changeset)
+      end
     end
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
   end
 
-  # defp get_group_id(conn) do
-  #   YouSpeak.Teachers.find_by_user_id(conn.assigns[:user].id)
-  # end
+  defp get_group_slug(conn, slug) do
+    YouSpeak.Groups.get_by_slug!(%{slug: slug, teacher_id: conn.assigns[:teacher].id}).id
+  end
 
-  # defp render_not_found(conn) do
-  #   conn
-  #   |> put_layout(false)
-  #   |> put_status(:not_found)
-  #   |> put_view(YouSpeakWeb.ErrorView)
-  #   |> render(:"404")
-  # end
+  defp get_group_id(conn, group_id) do
+    YouSpeak.Groups.get!(%{group_id: group_id, teacher_id: conn.assigns[:teacher].id}).id
+  end
+
+  defp render_not_found(conn) do
+    conn
+    |> put_layout(false)
+    |> put_status(:not_found)
+    |> put_view(YouSpeakWeb.ErrorView)
+    |> render(:"404")
+  end
 end
