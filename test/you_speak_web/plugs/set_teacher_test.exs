@@ -13,6 +13,7 @@ defmodule YouSpeakWeb.Plugs.SetTeacherTest do
 
   test "call/2 with user in sessions must assigns teacher to conn assings struct", %{conn: conn} do
     user = user_factory()
+
     {:ok, teacher} =
       teacher_factory()
       |> YouSpeak.Teachers.Schemas.Teacher.changeset(%{user_id: user.id})

@@ -11,7 +11,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
   @valid_params %{
     name: "Meeting",
     description: "",
-    video_url: "video_url",
+    video_url: "video_url"
   }
 
   @invalid_params %{
@@ -48,7 +48,12 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
       conn =
         get(
           conn,
-          Routes.group_meeting_path(conn, :new, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"}, meeting: @valid_params)
+          Routes.group_meeting_path(
+            conn,
+            :new,
+            %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"},
+            meeting: @valid_params
+          )
         )
 
       assert html_response(conn, 404)
@@ -56,15 +61,20 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
   end
 
   describe "POST /groups/:group_id/meetings" do
-    test "with valid data must create a new meeting and redirect to group path", %{conn: conn, group: group} do
-      conn = post(conn, Routes.group_meeting_path(conn, :create, group.id), meeting: @valid_params)
+    test "with valid data must create a new meeting and redirect to group path", %{
+      conn: conn,
+      group: group
+    } do
+      conn =
+        post(conn, Routes.group_meeting_path(conn, :create, group.id), meeting: @valid_params)
 
       assert get_flash(conn, :info) == "Meeting created!"
       assert redirected_to(conn) == Routes.group_path(conn, :index)
     end
 
     test "with invalid data render errors and keep in the new page", %{conn: conn, group: group} do
-      conn = post(conn, Routes.group_meeting_path(conn, :create, group.id), meeting: @invalid_params)
+      conn =
+        post(conn, Routes.group_meeting_path(conn, :create, group.id), meeting: @invalid_params)
 
       assert html_response(conn, 200) =~ "Add meeting"
     end
@@ -73,7 +83,12 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
       conn =
         post(
           conn,
-          Routes.group_meeting_path(conn, :create, %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"}, meeting: @valid_params)
+          Routes.group_meeting_path(
+            conn,
+            :create,
+            %YouSpeak.Groups.Schemas.Group{id: 99, slug: "99"},
+            meeting: @valid_params
+          )
         )
 
       assert html_response(conn, 404)
