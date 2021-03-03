@@ -10,11 +10,11 @@
   <%= text_input f, :name, placeholder: "Name", class: "form-control" %>
   <%= error_tag f, :name %>
 
-  <%= textarea f, :description, placeholder: "Description" %>
-  <%= error_tag f, :description %>
-
   <%= text_input f, :video_url, placeholder: "Video URL", class: "form-control" %>
   <%= error_tag f, :video_url %>
+
+  <%= textarea f, :description, placeholder: "Description" %>
+  <%= error_tag f, :description %>
 
   <%= link "Cancel", to: "/", class: "button" %>
   <%= submit "Submit" %>

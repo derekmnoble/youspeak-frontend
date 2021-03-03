@@ -32,6 +32,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
     |> validate_required(@required_fields)
     |> validate_length(:name, max: 200)
     |> slugify_name()
+    |> validate_video_url()
     |> unique_constraint(:slug)
     |> unique_constraint(:group)
   end
@@ -51,6 +52,38 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
   end
 
   defp slugify_name(changeset), do: changeset
+
+  # Copy and past from: https://gist.github.com/atomkirk/74b39b5b09c7d0f21763dd55b877f998
+  def validate_video_url(changeset) do
+    validate_change(changeset, :video_url, fn _, video_url ->
+      case URI.parse(video_url) do
+        %URI{scheme: nil} ->
+          "is missing a scheme (e.g. https)"
+
+        %URI{host: nil} ->
+          "is missing a host"
+
+        %URI{host: host} ->
+          case :inet.gethostbyname(Kernel.to_charlist(host)) do
+            {:ok, _} -> nil
+            {:error, _} -> "invalid host"
+          end
+      end
+      |> case do
+        error when is_binary(error) -> [{:video_url, Keyword.get([], :message, error)}]
+        _ -> []
+      end
+    end)
+  end
+
+  defmodule Test do
+    def get_video_id("http://youtu.be/" <> id), do: id
+    def get_video_id("http://www.youtube.com/watch?v=" <> id), do: id
+    def get_video_id("http://www.youtube.com/?v=" <> id), do: id
+    def get_video_id("https://youtu.be/" <> id), do: id
+    def get_video_id("https://www.youtube.com/watch?v=" <> id), do: id
+    def get_video_id("https://www.youtube.com/?v=" <> id), do: id
+  end
 end
 
 defimpl Phoenix.Param, for: YouSpeak.Meetings.Schemas.Meeting do

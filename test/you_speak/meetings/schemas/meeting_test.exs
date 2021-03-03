@@ -59,6 +59,50 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
       refute changeset.valid?
       assert "can't be blank" in errors_on(changeset).video_url
     end
+
+    test "video_url must invalid without an scheme" do
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "invalid"})
+
+      refute changeset.valid?
+      assert "is missing a scheme (e.g. https)" in errors_on(changeset).video_url
+    end
+
+    test "video_url must invalid without a host" do
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "http://.com.br"})
+
+      refute changeset.valid?
+      assert "invalid host" in errors_on(changeset).video_url
+    end
+
+    test "video_url must valid" do
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "https://www.youtube.com/watch?v=YGMQU1L9LKg"})
+
+      assert changeset.valid?
+
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "http://www.youtube.com/watch?v=YGMQU1L9LKg"})
+
+      assert changeset.valid?
+
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "http://youtu.be/YGMQU1L9LKg"})
+
+      assert changeset.valid?
+
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "https://youtu.be/YGMQU1L9LKg"})
+
+      assert changeset.valid?
+    end
   end
 
   test "slugify name" do
@@ -82,7 +126,11 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
   end
 
   test "name slug must be unique" do
-    params = %{name: "My name", description: "description", video_url: "video_url"}
+    params = %{
+      name: "My name",
+      description: "description",
+      video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84"
+    }
 
     {:ok, _schema} =
       %Meeting{}
