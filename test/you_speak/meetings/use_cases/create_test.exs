@@ -42,7 +42,7 @@ defmodule YouSpeak.Meetings.UseCases.CreateTest do
 
   test "call/1 with valid data must create a meeting", %{group: group} do
     params =
-      %{name: "Name", description: "", video_url: "video_url"}
+      %{name: "Name", description: "", video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84"}
       |> add_group_id(group.id)
 
     {:ok, meeting} = Create.call(params)

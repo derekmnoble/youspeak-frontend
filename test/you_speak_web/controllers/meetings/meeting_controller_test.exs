@@ -11,7 +11,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
   @valid_params %{
     name: "Meeting",
     description: "",
-    video_url: "video_url"
+    video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84"
   }
 
   @invalid_params %{
