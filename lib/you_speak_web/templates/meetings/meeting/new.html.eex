@@ -16,6 +16,6 @@
   <%= textarea f, :description, placeholder: "Description" %>
   <%= error_tag f, :description %>
 
-  <%= link "Cancel", to: "/", class: "button" %>
+  <%= link "Cancel", to: Routes.group_path(@conn, :index), class: "button" %>
   <%= submit "Submit" %>
 <% end %>
