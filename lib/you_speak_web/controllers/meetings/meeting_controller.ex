@@ -6,6 +6,20 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
   plug YouSpeakWeb.Plugs.RequireAuth
 
   @doc """
+  List meetings by a given group
+
+  ## Parameters
+      - conn: The connection
+      - params: The params are ignored
+  """
+  def index(conn, %{"group_id" => slug}) do
+    # teacher = get_teacher_by_user_id(conn)
+    # groups = ListByTeacherID.call(teacher.id)
+    #
+    # render(conn, "index.html", groups: groups)
+  end
+
+  @doc """
   Build a new changeset to create a new meeting
 
   ## Parameters

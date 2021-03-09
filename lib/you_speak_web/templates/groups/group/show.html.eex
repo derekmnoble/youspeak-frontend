@@ -5,12 +5,12 @@
   <%= tag(:input, type: "text", value: @group.name, disabled: true, name: "name")%>
 <% end %>
 <%= label(:group, :name) do %>
-  Description
-  <textarea disabled><%= @group.description%></textarea>
-<% end %>
-<%= label(:group, :name) do %>
   Slug
   <%= tag(:input, type: "text", value: @group.slug, disabled: true)%>
+<% end %>
+<%= label(:group, :name) do %>
+  Description
+  <textarea disabled><%= @group.description%></textarea>
 <% end %>
 
 <div class="fixed-action-btn">
