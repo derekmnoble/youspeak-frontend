@@ -41,7 +41,9 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
       refute changeset.valid?
       assert "should be at most 200 character(s)" in errors_on(changeset).name
     end
+  end
 
+  describe "video_url" do
     test "video_url must not be blank" do
       changeset =
         meeting_factory()
@@ -78,7 +80,16 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
       assert "invalid host" in errors_on(changeset).video_url
     end
 
-    test "video_url must valid" do
+    test "video_url is an valid url but not from youtube, so invalid" do
+      changeset =
+        meeting_factory()
+        |> Meeting.changeset(%{video_url: "http://pudim.com.br"})
+
+      refute changeset.valid?
+      assert "not an youtube valid URL" in errors_on(changeset).video_url
+    end
+
+    test "video_url must valid youtube url" do
       changeset =
         meeting_factory()
         |> Meeting.changeset(%{video_url: "https://www.youtube.com/watch?v=YGMQU1L9LKg"})
