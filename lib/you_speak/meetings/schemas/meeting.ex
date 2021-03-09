@@ -50,6 +50,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
 
     put_change(changeset, :slug, slugified_name)
   end
+
   defp slugify_name(changeset), do: changeset
 
   # Copy and past from: https://gist.github.com/atomkirk/74b39b5b09c7d0f21763dd55b877f998
@@ -70,7 +71,9 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
               else
                 nil
               end
-            {:error, _} -> "invalid host"
+
+            {:error, _} ->
+              "invalid host"
           end
       end
       |> case do
@@ -79,6 +82,7 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
       end
     end)
   end
+
   defp validate_video_url(changeset), do: changeset
 end
 
