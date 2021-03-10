@@ -1,0 +1,32 @@
+<%= if @meetings == [] do %>
+  <section class="phx-hero">
+    <p class="alert alert-info">
+      You have no meetings yet.
+    </p>
+  </section>
+<%= else %>
+  <h2><%= "Group #{@group.name} meetings" %></h1>
+
+  <table class="centered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for meeting <- @meetings do %>
+        <tr>
+          <td><%= meeting.name %></td>
+          <td><%= link "Details", to: "" %></td>
+          <td><%= link "Edit", to: "" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<div class="fixed-action-btn">
+  <%= link "Back", to: Routes.group_path(@conn, :index), class: "button left" %>
+</div>

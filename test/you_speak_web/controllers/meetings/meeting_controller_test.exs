@@ -39,9 +39,16 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
 
   describe "GET /groups/:group_id/meetings" do
     test "renders meetings/index template given a valid group", %{conn: conn, group: group} do
+      meeting_factory(%{group_id: group.id})
       conn = get(conn, Routes.group_meeting_path(conn, :index, group))
 
       assert html_response(conn, 200) =~ "Group #{group.name} meetings"
+    end
+
+    test "renders meetings/index with no meetings show empty index", %{conn: conn, group: group} do
+      conn = get(conn, Routes.group_meeting_path(conn, :index, group))
+
+      assert html_response(conn, 200) =~ "You have no meetings yet"
     end
 
     test "renders 404 given an invalid group", %{conn: conn} do

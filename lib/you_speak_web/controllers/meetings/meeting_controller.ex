@@ -2,6 +2,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
   use YouSpeakWeb, :controller
 
   alias YouSpeak.Meetings.Schemas.Meeting
+  alias YouSpeak.Meetings.UseCases.ListByGroupSlug
 
   plug YouSpeakWeb.Plugs.RequireAuth
 
@@ -13,10 +14,14 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       - params: The params are ignored
   """
   def index(conn, %{"group_id" => slug}) do
-    # teacher = get_teacher_by_user_id(conn)
-    # groups = ListByTeacherID.call(teacher.id)
-    #
-    # render(conn, "index.html", groups: groups)
+    if group = get_group_by_slug(conn, slug) do
+      meetings = ListByGroupSlug.call(%{slug: group.slug, teacher_id: group.teacher_id})
+
+      render(conn, "index.html", meetings: meetings, group: group)
+    end
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
   end
 
   @doc """
@@ -65,8 +70,12 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       render_not_found(conn)
   end
 
+  defp get_group_by_slug(conn, slug) do
+    YouSpeak.Groups.get_by_slug!(%{slug: slug, teacher_id: conn.assigns[:teacher].id})
+  end
+
   defp get_group_id_by_slug(conn, slug) do
-    YouSpeak.Groups.get_by_slug!(%{slug: slug, teacher_id: conn.assigns[:teacher].id}).id
+    get_group_by_slug(conn, slug).id
   end
 
   defp get_group_id(conn, group_id) do
