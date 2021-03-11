@@ -4,7 +4,7 @@
       You have no groups yet.
     </p>
   </section>
-<%= else %>
+<% else %>
   <h2>Listing groups</h1>
 
   <table class="centered">

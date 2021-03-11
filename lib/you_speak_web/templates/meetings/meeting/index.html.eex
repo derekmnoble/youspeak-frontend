@@ -4,7 +4,7 @@
       You have no meetings yet.
     </p>
   </section>
-<%= else %>
+<% else %>
   <h2><%= "Group #{@group.name} meetings" %></h1>
 
   <table class="centered">
