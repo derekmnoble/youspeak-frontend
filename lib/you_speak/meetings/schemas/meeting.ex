@@ -19,12 +19,14 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
     timestamps()
   end
 
-  # def changeset(%{id: id} = struct, attributes) when not is_nil(id) do
-  #   struct
-  #   |> cast(attributes, [:name, :description, :activated_at, :inactivated_at])
-  #   |> validate_required(@required_fields)
-  #   |> validate_length(:name, max: 200)
-  # end
+  def changeset(%{id: id} = struct, attributes) when not is_nil(id) do
+    struct
+    |> cast(attributes, [:name, :description, :video_url])
+    |> validate_required(@required_fields)
+    |> validate_length(:name, max: 200)
+    |> slugify_name()
+    |> validate_video_url()
+  end
 
   def changeset(%{id: id} = struct, attributes) when is_nil(id) do
     struct

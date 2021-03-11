@@ -70,6 +70,24 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       render_not_found(conn)
   end
 
+  @doc """
+  Gets a given meeting and open form to edit
+
+  ## Parameters
+      - conn: The connection
+      - params: The params will be data to get a group
+  """
+  def edit(conn, %{"group_id" => group_slug, "id" => meeting_slug}) do
+    group = get_group_by_slug(conn, group_slug)
+    meeting = YouSpeak.Meetings.get_by_slug!(%{slug: meeting_slug, group_id: group.id})
+    changeset = Meeting.changeset(meeting, %{})
+    render(conn, "edit.html", changeset: changeset, group: group)
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
+  end
+
+  # TODO: Dry!
   defp get_group_by_slug(conn, slug) do
     YouSpeak.Groups.get_by_slug!(%{slug: slug, teacher_id: conn.assigns[:teacher].id})
   end

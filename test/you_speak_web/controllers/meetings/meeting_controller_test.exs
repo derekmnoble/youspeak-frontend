@@ -124,4 +124,27 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
       assert html_response(conn, 404)
     end
   end
+
+  describe "GET /groups/:group_id/meetings/:meeting_id/edit" do
+    test "with valid id/slug must open edit template with meeting", %{conn: conn, group: group} do
+      meeting = meeting_factory(%{group_id: group.id, slug: "myslug"})
+      conn = get(conn, Routes.group_meeting_path(conn, :edit, group, meeting))
+
+      assert html_response(conn, 200) =~ meeting.name
+      assert html_response(conn, 200) =~ "Edit meeting"
+    end
+
+    test "with invalid id must raise 404", %{conn: conn, group: group} do
+      conn =
+        get(
+          conn,
+          Routes.group_meeting_path(conn, :edit, group, %YouSpeak.Meetings.Schemas.Meeting{
+            id: 99,
+            slug: "xunda"
+          })
+        )
+
+      assert html_response(conn, 404)
+    end
+  end
 end

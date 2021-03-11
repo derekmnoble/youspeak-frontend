@@ -20,7 +20,7 @@
         <tr>
           <td><%= meeting.name %></td>
           <td><%= link "Details", to: "" %></td>
-          <td><%= link "Edit", to: "" %></td>
+          <td><%= link "Edit", to: Routes.group_meeting_path(@conn, :edit, @group, meeting) %></td>
         </tr>
       <% end %>
     </tbody>

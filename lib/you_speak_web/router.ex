@@ -24,7 +24,7 @@ defmodule YouSpeakWeb.Router do
     post "/teachers/registration/", Teachers.RegistrationController, :create
 
     resources "/groups", Groups.GroupController, except: [:delete] do
-      resources "/meetings", Meetings.MeetingController, only: [:index, :new, :create]
+      resources "/meetings", Meetings.MeetingController, except: [:delete]
     end
   end
 
