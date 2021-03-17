@@ -23,22 +23,6 @@ defmodule YouSpeak.Groups.UseCases.UpdateTest do
     assert updated_group.description == new_params.description
   end
 
-  test "call/2 with invvalid teacher_id must raise error" do
-    group = group_factory(%{teacher_id: teacher_factory().id})
-
-    new_params = %{
-      name: "updated name",
-      description: "updated desc",
-      teacher_id: group.teacher_id
-    }
-
-    {:ok, updated_group} = Update.call(group.id, new_params)
-
-    assert updated_group.id == group.id
-    assert updated_group.name == new_params.name
-    assert updated_group.description == new_params.description
-  end
-
   test "call/2 with invalid return changeset" do
     group = group_factory(%{teacher_id: teacher_factory().id})
 

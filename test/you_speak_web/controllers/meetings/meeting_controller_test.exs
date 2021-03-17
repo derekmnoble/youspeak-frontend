@@ -2,6 +2,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
   use YouSpeakWeb.ConnCase
 
   alias YouSpeak.Factory
+  alias YouSpeak.Meetings.Schemas.Meeting
 
   def user_factory, do: Factory.insert!(:user)
   def teacher_factory(attributes \\ %{}), do: Factory.insert!(:teacher, attributes)
@@ -48,7 +49,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
     test "renders meetings/index with no meetings show empty index", %{conn: conn, group: group} do
       conn = get(conn, Routes.group_meeting_path(conn, :index, group))
 
-      assert html_response(conn, 200) =~ "You have no meetings yet"
+      assert html_response(conn, 200) =~ "You have no meetings for group: #{group.name}"
     end
 
     test "renders 404 given an invalid group", %{conn: conn} do
@@ -128,7 +129,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
   describe "GET /groups/:group_id/meetings/:meeting_id/edit" do
     test "with valid id/slug must open edit template with meeting", %{conn: conn, group: group} do
       meeting = meeting_factory(%{group_id: group.id, slug: "myslug"})
-      conn = get(conn, Routes.group_meeting_path(conn, :edit, group, meeting))
+      conn = get(conn, Routes.group_meeting_path(conn, :edit, group.slug, meeting.slug))
 
       assert html_response(conn, 200) =~ meeting.name
       assert html_response(conn, 200) =~ "Edit meeting"
@@ -145,6 +146,57 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
         )
 
       assert html_response(conn, 404)
+    end
+  end
+
+  describe "PUT /groups/ID/meetings" do
+    test "with valid data must update the group data and redirect to meetings index", %{
+      conn: conn,
+      group: group
+    } do
+      params = %{
+        name: "My Meeting",
+        video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84",
+        description: "",
+        group_id: group.id
+      }
+
+      {:ok, meeting} =
+        %Meeting{}
+        |> Meeting.changeset(params)
+        |> YouSpeak.Repo.insert()
+
+      conn =
+        put(conn, Routes.group_meeting_path(conn, :update, group, meeting),
+          meeting: %{params | name: "My new Name"}
+        )
+
+      assert get_flash(conn, :info) == "Meeting updated"
+      assert redirected_to(conn) == Routes.group_meeting_path(conn, :index, group)
+    end
+
+    test "with invalid data must keeps on edit page", %{
+      conn: conn,
+      group: group
+    } do
+      params = %{
+        name: "My Meeting",
+        video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84",
+        description: "",
+        group_id: group.id
+      }
+
+      {:ok, meeting} =
+        %Meeting{}
+        |> Meeting.changeset(params)
+        |> YouSpeak.Repo.insert()
+
+      conn =
+        put(conn, Routes.group_meeting_path(conn, :update, group, meeting),
+          meeting: %{params | video_url: ""}
+        )
+
+      assert html_response(conn, 200) =~ "Edit meeting"
     end
   end
 end

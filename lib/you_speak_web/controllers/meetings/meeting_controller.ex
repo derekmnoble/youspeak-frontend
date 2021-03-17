@@ -81,7 +81,38 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
     group = get_group_by_slug(conn, group_slug)
     meeting = YouSpeak.Meetings.get_by_slug!(%{slug: meeting_slug, group_id: group.id})
     changeset = Meeting.changeset(meeting, %{})
-    render(conn, "edit.html", changeset: changeset, group: group)
+    render(conn, "edit.html", changeset: changeset, meeting: meeting, group: group)
+  rescue
+    Ecto.NoResultsError ->
+      render_not_found(conn)
+  end
+
+  @doc """
+  Updates a given meeting
+
+  ## Parameters
+
+    - conn: The connection
+    - params: The params to update a group
+  """
+  def update(conn, %{"group_id" => group_slug, "id" => slug, "meeting" => meeting_params}) do
+    group = get_group_by_slug(conn, group_slug)
+    meeting = YouSpeak.Meetings.get!(%{slug: slug, group_id: group.id})
+
+    meeting_params =
+      meeting_params
+      |> Map.merge(%{"group_id" => group.id})
+      |> YouSpeak.Map.keys_to_atoms()
+
+    case YouSpeak.Meetings.update(meeting.id, meeting_params) do
+      {:ok, _schema} ->
+        conn
+        |> put_flash(:info, "Meeting updated")
+        |> redirect(to: Routes.group_meeting_path(conn, :index, group))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", changeset: changeset, group: group, meeting: meeting)
+    end
   rescue
     Ecto.NoResultsError ->
       render_not_found(conn)

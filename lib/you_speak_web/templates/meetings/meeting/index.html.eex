@@ -1,7 +1,7 @@
 <%= if @meetings == [] do %>
   <section class="phx-hero">
     <p class="alert alert-info">
-      You have no meetings yet.
+      <%= "You have no meetings for group: #{@group.name}" %>
     </p>
   </section>
 <% else %>
