@@ -91,6 +91,37 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
     end
   end
 
+  describe "GET /groups/slug/meetings/slug" do
+    test "with valid id/slug must open show template with meeting", %{conn: conn, group: group} do
+      params = %{
+        name: "My Meeting",
+        video_url: "https://www.youtube.com/watch?v=2d_6EQx3Z84",
+        description: "",
+        group_id: group.id
+      }
+
+      {:ok, meeting} =
+        %Meeting{}
+        |> Meeting.changeset(params)
+        |> YouSpeak.Repo.insert()
+
+      conn = get(conn, Routes.group_meeting_path(conn, :show, group, meeting))
+
+      assert html_response(conn, 200) =~ meeting.name
+      assert html_response(conn, 200) =~ "Meeting details"
+    end
+
+    test "with invalid id must raise 404", %{conn: conn, group: group} do
+      conn =
+        get(
+          conn,
+          Routes.group_meeting_path(conn, :show, group, %YouSpeak.Meetings.Schemas.Meeting{id: 99, slug: "99"})
+        )
+
+      assert html_response(conn, 404)
+    end
+  end
+
   describe "POST /groups/:group_id/meetings" do
     test "with valid data must create a new meeting and redirect to group path", %{
       conn: conn,

@@ -19,7 +19,7 @@
       <%= for meeting <- @meetings do %>
         <tr>
           <td><%= meeting.name %></td>
-          <td><%= link "Details", to: "" %></td>
+          <td><%= link "Details", to: Routes.group_meeting_path(@conn, :show, @group, meeting) %></td>
           <td><%= link "Edit", to: Routes.group_meeting_path(@conn, :edit, @group, meeting) %></td>
         </tr>
       <% end %>

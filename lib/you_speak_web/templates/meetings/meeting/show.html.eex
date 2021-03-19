@@ -1,0 +1,18 @@
+<h2>Meeting details</h1>
+
+<%= label(:meeting, :name) do %>
+  Name
+  <%= tag(:input, type: "text", value: @meeting.name, disabled: true, name: "name")%>
+<% end %>
+<%= label(:meeting, :name) do %>
+  Slug
+  <%= tag(:input, type: "text", value: @meeting.video_url, disabled: true)%>
+<% end %>
+<%= label(:meeting, :name) do %>
+  Description
+  <textarea disabled><%= @meeting.description%></textarea>
+<% end %>
+
+<div class="fixed-action-btn">
+  <%= link "Back", to: "", class: "button left" %>
+</div>

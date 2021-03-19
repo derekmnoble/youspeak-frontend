@@ -15,7 +15,7 @@ defmodule YouSpeak.Meetings do
   def get_by_slug!(params), do: GetBySlug.call(params)
 
   @spec get!(Get.params()) :: Get.meeting_or_exception()
-  def get!(params), do: GetBySlug.call(params)
+  def get!(params), do: Get.call(params)
 
   @spec update(integer(), Update.params()) :: Update.ok_meeting_or_error_changeset()
   def update(meeting_id, params), do: Update.call(meeting_id, params)
