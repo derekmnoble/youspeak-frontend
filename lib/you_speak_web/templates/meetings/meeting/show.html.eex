@@ -14,5 +14,5 @@
 <% end %>
 
 <div class="fixed-action-btn">
-  <%= link "Back", to: "", class: "button left" %>
+  <%= link "Back", to: Routes.group_meeting_path(@conn, :index, @group), class: "button left" %>
 </div>

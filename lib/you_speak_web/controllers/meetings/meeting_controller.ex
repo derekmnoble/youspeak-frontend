@@ -59,7 +59,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
         {:ok, _schema} ->
           conn
           |> put_flash(:info, "Meeting created!")
-          |> redirect(to: Routes.group_path(conn, :index))
+          |> redirect(to: Routes.group_meeting_path(conn, :index, group_id))
 
         {:error, %Ecto.Changeset{} = changeset} ->
           render(conn, "new.html", changeset: changeset, group: group_id)
