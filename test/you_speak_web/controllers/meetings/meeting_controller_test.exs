@@ -134,7 +134,7 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
         post(conn, Routes.group_meeting_path(conn, :create, group.id), meeting: @valid_params)
 
       assert get_flash(conn, :info) == "Meeting created!"
-      assert redirected_to(conn) == Routes.group_path(conn, :index)
+      assert redirected_to(conn) == Routes.group_meeting_path(conn, :index, group)
     end
 
     test "with invalid data render errors and keep in the new page", %{conn: conn, group: group} do

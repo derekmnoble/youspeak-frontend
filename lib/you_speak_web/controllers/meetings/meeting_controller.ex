@@ -50,7 +50,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
       - params: The params will be data for create a new group
   """
   def create(conn, %{"group_id" => group_id, "meeting" => meeting_params}) do
-    if get_group_id(conn, group_id) do
+    if group = get_group(conn, group_id) do
       meeting_params =
         meeting_params
         |> Map.merge(%{"group_id" => group_id})
@@ -59,10 +59,10 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
         {:ok, _schema} ->
           conn
           |> put_flash(:info, "Meeting created!")
-          |> redirect(to: Routes.group_meeting_path(conn, :index, group_id))
+          |> redirect(to: Routes.group_meeting_path(conn, :index, group))
 
         {:error, %Ecto.Changeset{} = changeset} ->
-          render(conn, "new.html", changeset: changeset, group: group_id)
+          render(conn, "new.html", changeset: changeset, group: group)
       end
     end
   rescue
@@ -144,8 +144,8 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
     get_group_by_slug(conn, slug).id
   end
 
-  defp get_group_id(conn, group_id) do
-    YouSpeak.Groups.get!(%{group_id: group_id, teacher_id: conn.assigns[:teacher].id}).id
+  defp get_group(conn, group_id) do
+    YouSpeak.Groups.get!(%{group_id: group_id, teacher_id: conn.assigns[:teacher].id})
   end
 
   defp render_not_found(conn) do
