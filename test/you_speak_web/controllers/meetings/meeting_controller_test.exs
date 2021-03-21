@@ -115,7 +115,10 @@ defmodule YouSpeakWeb.Meetings.MeetingControllerTest do
       conn =
         get(
           conn,
-          Routes.group_meeting_path(conn, :show, group, %YouSpeak.Meetings.Schemas.Meeting{id: 99, slug: "99"})
+          Routes.group_meeting_path(conn, :show, group, %YouSpeak.Meetings.Schemas.Meeting{
+            id: 99,
+            slug: "99"
+          })
         )
 
       assert html_response(conn, 404)
