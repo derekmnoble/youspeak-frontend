@@ -84,8 +84,6 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
       end
     end)
   end
-
-  defp validate_video_url(changeset), do: changeset
 end
 
 defimpl Phoenix.Param, for: YouSpeak.Meetings.Schemas.Meeting do
