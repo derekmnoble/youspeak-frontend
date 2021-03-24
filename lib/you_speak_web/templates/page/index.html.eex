@@ -1,17 +1,18 @@
-<%= if @conn.assigns[:user] do %>
-  <ul>
-    <li>
-      <%= link "Add group", to: Routes.group_path(@conn, :new), class: "btn-floating btn-large waves-effect waves-light red" %>
-    </li>
-
-    <li>
-      <%= link "List group", to: Routes.group_path(@conn, :index), class: "btn-floating btn-large waves-effect waves-light red" %>
-    </li>
-  </ul>
-<% else %>
-  <section class="phx-hero">
-    <p>
-      <%= link "Sign in with Google", class: "button", to: Routes.auth_path(@conn, :request, "google") %>
-    </p>
-  </section>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 welcome-message">
+      <div class="jumbotron card card-block">
+        <h2>
+          Welcome to YouSpeak!
+        </h2>
+        <p>
+          Some text to pay attention
+        </p>
+        <hr />
+        <p>
+          <%= link "Sign in with Google", class: "btn btn-primary", to: Routes.auth_path(@conn, :request, "google") %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
