@@ -4,14 +4,14 @@
   Name
   <%= tag(:input, type: "text", value: @meeting.name, disabled: true, name: "name")%>
 <% end %>
-<%= label(:meeting, :name) do %>
-  Slug
-  <%= tag(:input, type: "text", value: @meeting.video_url, disabled: true)%>
-<% end %>
-<%= label(:meeting, :name) do %>
+<%= label(:meeting, :description) do %>
   Description
   <textarea disabled><%= @meeting.description%></textarea>
 <% end %>
+
+<iframe id="ytplayer" type="text/html" width="640" height="480"
+  src="http://www.youtube.com/embed/<%= YouSpeak.Meetings.Schemas.Meeting.video_id(@meeting) %>"
+  frameborder="0"/>
 
 <div class="fixed-action-btn">
   <%= link "Back", to: Routes.group_meeting_path(@conn, :index, @group), class: "button left" %>

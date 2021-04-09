@@ -116,6 +116,15 @@ defmodule YouSpeak.Meetings.Schemas.MeetingTest do
     end
   end
 
+  test "video_id/0 must returns the video_id from video_url" do
+    {:ok, meeting} =
+      meeting_factory()
+      |> Meeting.changeset(%{video_url: "https://www.youtube.com/watch?v=YGMQU1L9LKg"})
+      |> Repo.insert()
+
+    assert Meeting.video_id(meeting) == "YGMQU1L9LKg"
+  end
+
   test "slugify name" do
     changeset =
       meeting_factory()

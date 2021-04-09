@@ -39,6 +39,8 @@ defmodule YouSpeak.Meetings.Schemas.Meeting do
     |> unique_constraint(:group)
   end
 
+  def video_id(%{video_url: video_url}), do: video_url |> String.split("v=") |> Enum.at(1)
+
   # TODO: Needs to apply DRY
   defp slugify_name(%{changes: %{name: name} = changes} = changeset)
        when map_size(changes) > 0
