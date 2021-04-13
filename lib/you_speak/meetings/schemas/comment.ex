@@ -19,7 +19,7 @@ defmodule YouSpeak.Meetings.Schemas.Comment do
 
   def changeset(struct, attributes) do
     struct
-    |> cast(attributes, [:url])
+    |> cast(attributes, [:url, :user_id, :meeting_id])
     |> validate_required(@required_fields)
   end
 end

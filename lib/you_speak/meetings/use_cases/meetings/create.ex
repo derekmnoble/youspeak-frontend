@@ -22,7 +22,7 @@ defmodule YouSpeak.Meetings.UseCases.Meetings.Create do
   Retuned typespec for given function
   """
   @type ok_meeting_or_error_changeset ::
-          {:ok, YouSpeak.Teachers.Schemas.Meeting} | {:error, %Ecto.Changeset{}}
+          {:ok, YouSpeak.Meetings.Schemas.Meeting} | {:error, %Ecto.Changeset{}}
 
   @doc """
   Creates a new meeting to a given group
