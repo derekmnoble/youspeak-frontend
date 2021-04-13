@@ -43,6 +43,14 @@ defmodule YouSpeak.Factory do
     }
   end
 
+  def build(:comment) do
+    %YouSpeak.Meetings.Schemas.Comment{
+      url: "url",
+      meeting_id: __MODULE__.build(:meeting).id,
+      user_id: __MODULE__.build(:user).id
+    }
+  end
+
   def build(factory_name, attributes) do
     factory_name
     |> build()
