@@ -2,7 +2,7 @@ defmodule YouSpeakWeb.Meetings.MeetingController do
   use YouSpeakWeb, :controller
 
   alias YouSpeak.Meetings.Schemas.Meeting
-  alias YouSpeak.Meetings.UseCases.ListByGroupSlug
+  alias YouSpeak.Meetings.UseCases.Meetings.ListByGroupSlug
 
   plug YouSpeakWeb.Plugs.RequireAuth
 

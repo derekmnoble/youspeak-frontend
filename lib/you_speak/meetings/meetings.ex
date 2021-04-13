@@ -3,7 +3,7 @@ defmodule YouSpeak.Meetings do
   Meetings bounded context contains all use cases available to the Meetings context.
   """
 
-  alias YouSpeak.Meetings.UseCases.{Create, ListByGroupSlug, GetBySlug, Get, Update}
+  alias YouSpeak.Meetings.UseCases.Meetings.{Create, ListByGroupSlug, GetBySlug, Get, Update}
 
   @spec create(Create.params()) :: Create.ok_meeting_or_error_changeset()
   def create(params), do: Create.call(params)
