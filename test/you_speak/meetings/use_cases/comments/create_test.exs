@@ -7,7 +7,9 @@ defmodule YouSpeak.Meetings.UseCases.Comments.CreateTest do
   def meeting_factory(attributes \\ %{}), do: Factory.build(:meeting, attributes)
   def user_factory(attributes \\ %{}), do: Factory.insert!(:user, attributes)
 
-  defp add_meeting_id(comment_params, meeting_id), do: Map.put(comment_params, :meeting_id, meeting_id)
+  defp add_meeting_id(comment_params, meeting_id),
+    do: Map.put(comment_params, :meeting_id, meeting_id)
+
   defp add_user_id(comment_params, user_id), do: Map.put(comment_params, :user_id, user_id)
 
   setup do
@@ -15,7 +17,9 @@ defmodule YouSpeak.Meetings.UseCases.Comments.CreateTest do
 
     {:ok, meeting} =
       meeting_factory()
-      |> YouSpeak.Meetings.Schemas.Meeting.changeset(%{video_url: "http://www.youtube.com/watch?v=YGMQU1L9LKg"})
+      |> YouSpeak.Meetings.Schemas.Meeting.changeset(%{
+        video_url: "http://www.youtube.com/watch?v=YGMQU1L9LKg"
+      })
       |> YouSpeak.Repo.insert()
 
     {:ok, user: user, meeting: meeting}

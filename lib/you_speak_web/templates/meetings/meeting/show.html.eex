@@ -156,6 +156,16 @@
         audio.src = audioURL;
         console.log("recorder stopped");
 
+        // Request CommentController#create to upload file
+        fetch("http://localhost:4000/comments", {
+          method: "POST",
+          body: audioURL
+        }).then((response) => {
+          console.log(response)
+          console.log("File uploaded")
+        });
+
+        //
         deleteButton.onclick = function(e) {
           let evtTgt = e.target;
           evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);

@@ -31,6 +31,6 @@ defmodule YouSpeak.Meetings.UseCases.Meetings.GetBySlug do
       meeting in Meeting,
       where: meeting.slug == ^slug and meeting.group_id == ^group_id
     )
-    |> Repo.one!()
+    |> Repo.one!(preload: [:group])
   end
 end

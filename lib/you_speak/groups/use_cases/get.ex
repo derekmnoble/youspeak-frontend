@@ -16,7 +16,7 @@ defmodule YouSpeak.Groups.UseCases.Get do
   @type group_or_exception :: YouSpeak.Teachers.Schemas.Group | Ecto.NoResultsError
 
   @doc """
-  Gets a given group by its ID
+  Gets a given group by its ID and teacher
 
       iex> YouSpeak.Groups.UseCases.Get.call(%{group_id: 1, teacher_id: 22})
       iex> %YouSpeak.Groups.Schemas.Group{}

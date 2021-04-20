@@ -13,6 +13,12 @@ defmodule YouSpeakWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug YouSpeakWeb.Plugs.SetUser
+    plug YouSpeakWeb.Plugs.SetTeacher
   end
 
   scope "/", YouSpeakWeb do
@@ -24,7 +30,19 @@ defmodule YouSpeakWeb.Router do
     post "/teachers/registration/", Teachers.RegistrationController, :create
 
     resources "/groups", Groups.GroupController, except: [:delete] do
-      resources "/meetings", Meetings.MeetingController, except: [:delete]
+      resources "/meetings", Meetings.MeetingController, except: [:delete] do
+        resources "/comments", Meetings.CommentController, only: [:create]
+      end
+    end
+  end
+
+  scope "/api", YouSpeakWeb do
+    pipe_through :api
+
+    scope "/groups/:group_id" do
+      scope "/meetings/:meeting_id" do
+        resources "/comments", Meetings.CommentController, only: [:create]
+      end
     end
   end
 
@@ -36,10 +54,6 @@ defmodule YouSpeakWeb.Router do
     get "/:provider/callback", Auth.AuthController, :callback
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", YouSpeakWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #

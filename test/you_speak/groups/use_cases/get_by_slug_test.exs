@@ -19,15 +19,20 @@ defmodule YouSpeak.Groups.UseCases.GetBySlugTest do
       |> Repo.insert()
 
     params = %{slug: group.slug, teacher_id: group.teacher_id}
-
     result = GetBySlug.call(params)
+    assert result.id == group.id
 
+    result = GetBySlug.call(group.slug)
     assert result.id == group.id
   end
 
   test "call/1 with invalid group returns nil" do
     assert_raise Ecto.NoResultsError, fn ->
       GetBySlug.call(%{slug: "invalid slug", teacher_id: teacher_factory().id})
+    end
+
+    assert_raise Ecto.NoResultsError, fn ->
+      GetBySlug.call("invalid-slug")
     end
   end
 end
