@@ -8,6 +8,7 @@ defmodule YouSpeak.Meetings.Schemas.Comment do
 
   @required_fields [:url]
 
+  @derive {Jason.Encoder, only: [:url, :meeting_id, :user_id]}
   schema "comments" do
     field :url, :string
 

@@ -20,6 +20,9 @@ defmodule YouSpeak.Groups do
   @spec delete(Delete.group(), integer()) :: Delete.ok_group_or_error_changeset()
   def delete(group, teacher_id), do: Delete.call(group, teacher_id)
 
+  @spec get_by_slug!(String.t()) :: Get.group_or_exception()
+  def get_by_slug!(slug), do: GetBySlug.call(slug)
+
   @spec get_by_slug!(GetBySlug.params()) :: Get.group_or_exception()
   def get_by_slug!(params), do: GetBySlug.call(params)
 end

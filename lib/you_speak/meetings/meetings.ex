@@ -12,10 +12,7 @@ defmodule YouSpeak.Meetings do
   def list_by_group_slug(params), do: ListByGroupSlug.call(params)
 
   @spec get_by_slug!(GetBySlug.params()) :: Get.meeting_or_exception()
-  def get_by_slug!(%{} = params), do: GetBySlug.call(params)
-
-  @spec get_by_slug!(String.t()) :: Get.meeting_or_exception()
-  def get_by_slug!(slug), do: GetBySlug.call(slug)
+  def get_by_slug!(params), do: GetBySlug.call(params)
 
   @spec get!(Get.params()) :: Get.meeting_or_exception()
   def get!(params), do: Get.call(params)
