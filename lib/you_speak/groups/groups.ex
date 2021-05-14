@@ -21,8 +21,8 @@ defmodule YouSpeak.Groups do
   def delete(group, teacher_id), do: Delete.call(group, teacher_id)
 
   @spec get_by_slug!(String.t()) :: Get.group_or_exception()
-  def get_by_slug!(slug), do: GetBySlug.call(slug)
+  def get_by_slug!(slug) when is_binary(slug), do: GetBySlug.call(slug)
 
   @spec get_by_slug!(GetBySlug.params()) :: Get.group_or_exception()
-  def get_by_slug!(params), do: GetBySlug.call(params)
+  def get_by_slug!(params) when is_map(params), do: GetBySlug.call(params)
 end

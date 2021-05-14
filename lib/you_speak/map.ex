@@ -26,10 +26,9 @@ defmodule YouSpeak.Map do
       iex> YouSpeak.Map.keys_to_atoms(%{"string" => "value", "map" => %{"string" => "value"}})
       %{string: "value", map: %{string: "value"}}
   """
-  def keys_to_atoms(%DateTime{} = value), do: value
   def keys_to_atoms(%Plug.Upload{} = value), do: value
-  def keys_to_atoms(%NaiveDateTime{} = value), do: value
   def keys_to_atoms(%DateTime{} = value), do: value
+  def keys_to_atoms(%NaiveDateTime{} = value), do: value
   def keys_to_atoms(%Date{} = value), do: value
   def keys_to_atoms(%Time{} = value), do: value
 
