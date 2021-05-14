@@ -2,6 +2,14 @@ defmodule YouSpeakWeb.Meetings.CommentView do
   @moduledoc false
   use YouSpeakWeb, :view
 
+  def render("index.json", %{}) do
+    %{ok: :ok}
+  end
+
+  def render("show.json", %{}) do
+    %{ok: :show}
+  end
+
   def render("show.json", %{comment: comment}) do
     %{data: render_one(comment, __MODULE__, "comment.json")}
   end

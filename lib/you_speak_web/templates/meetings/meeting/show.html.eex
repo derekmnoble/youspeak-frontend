@@ -10,6 +10,8 @@
 <% end %>
 
 <%= tag(:input, type: "hidden", id: "meeting_video_id", value: YouSpeak.Meetings.Schemas.Meeting.video_id(@meeting)) %>
+<%= tag(:input, type: "hidden", id: "meeting_id", value: @meeting.slug) %>
+<%= tag(:input, type: "hidden", id: "group_id", value: @group.slug) %>
 
 <div id="player"></div>
 
@@ -154,15 +156,28 @@
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         audio.src = audioURL;
-        console.log("recorder stopped");
 
-        // Request CommentController#create to upload file
-        fetch("http://localhost:4000/comments", {
-          method: "POST",
-          body: audioURL
-        }).then((response) => {
+        const meetingID = document.querySelector('#meeting_id').value;
+        const groupID = document.querySelector('#group_id').value;
+
+        var headers = new Headers();
+        headers.append('Accept', 'application/json'); // This one is enough for GET requests
+        headers.append('Content-Type', 'application/json'); // This one sends body
+        fetch("http://localhost:4000/api/upload", {
+            method: 'POST',
+            mode: 'same-origin',
+            credentials: 'include',
+            redirect: 'follow',
+            headers: headers,
+            body: JSON.stringify({
+              comment: audioURL
+            }),
+        }).then(resp => {
           console.log(response)
           console.log("File uploaded")
+        }).catch(err => {
+          console.log(err)
+          console.log("err")
         });
 
         //

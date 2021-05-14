@@ -13,12 +13,6 @@ defmodule YouSpeakWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-    plug YouSpeakWeb.Plugs.SetUser
-    plug YouSpeakWeb.Plugs.SetTeacher
   end
 
   scope "/", YouSpeakWeb do
@@ -30,20 +24,15 @@ defmodule YouSpeakWeb.Router do
     post "/teachers/registration/", Teachers.RegistrationController, :create
 
     resources "/groups", Groups.GroupController, except: [:delete] do
-      resources "/meetings", Meetings.MeetingController, except: [:delete] do
-        resources "/comments", Meetings.CommentController, only: [:create]
-      end
+      resources "/meetings", Meetings.MeetingController, except: [:delete]
     end
   end
 
   scope "/api", YouSpeakWeb do
     pipe_through :api
 
-    scope "/groups/:group_id" do
-      scope "/meetings/:meeting_id" do
-        resources "/comments", Meetings.CommentController, only: [:create]
-      end
-    end
+    post "/comments", Meetings.CommentController, :create
+    post "/upload", Meetings.CommentController, :upload
   end
 
   scope "/auth", YouSpeakWeb do

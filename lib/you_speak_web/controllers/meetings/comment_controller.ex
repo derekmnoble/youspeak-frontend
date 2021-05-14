@@ -3,7 +3,7 @@ defmodule YouSpeakWeb.Meetings.CommentController do
 
   alias YouSpeak.Meetings.UseCases.Comments.{Create}
 
-  plug YouSpeakWeb.Plugs.RequireAuth
+  # plug YouSpeakWeb.Plugs.RequireAuth
 
   def create(conn, %{
         "group_id" => group_slug,
@@ -22,6 +22,13 @@ defmodule YouSpeakWeb.Meetings.CommentController do
           |> render("show.json", comment: comment)
       end
     end
+  end
+
+  def upload(conn, %{"comment" => comment}) do
+    IO.inspect(comment, label: :comment)
+    conn
+    |> put_status(:ok)
+    |> render("show.json", %{})
   end
 
   defp get_meeting(meeting_slug, group_slug) do
