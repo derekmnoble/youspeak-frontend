@@ -8,9 +8,6 @@ var videoId = document.getElementById('meeting_video_id').value
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
-console.log(player)
-console.log(videoId)
-console.log(firstScriptTag)
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '600',
