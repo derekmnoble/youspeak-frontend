@@ -7,7 +7,9 @@
     <title>YouSpeak</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <%= render_existing @view_module, "scripts.html", assigns %>
+    <script type="text/javascript" id="www-widgetapi-script" src="https://s.ytimg.com/yts/jsbin/www-widgetapi-vflS50iB-/www-widgetapi.js" async=""></script>
+    <script src="https://www.youtube.com/player_api"></script>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/videoPlayer.js") %>"></script>
   </head>
   <body>
     <header>
