@@ -50,7 +50,11 @@ defmodule YouSpeakWeb.Meetings.CommentControllerTest do
       meeting: meeting
     } do
       conn =
-        post(conn, Routes.comment_path(conn, :create, group, meeting), comment: @valid_params)
+        post(conn, Routes.comment_path(conn, :create),
+          comment: @valid_params,
+          group_id: group.slug,
+          meeting_id: meeting.slug
+        )
 
       assert json_response(conn, 201)
     end

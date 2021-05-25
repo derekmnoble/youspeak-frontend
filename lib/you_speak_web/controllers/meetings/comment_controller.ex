@@ -3,6 +3,7 @@ defmodule YouSpeakWeb.Meetings.CommentController do
 
   alias YouSpeak.Meetings.UseCases.Comments.{Create}
 
+  # TODO: needs to uncomment
   # plug YouSpeakWeb.Plugs.RequireAuth
 
   def create(conn, %{
@@ -26,6 +27,7 @@ defmodule YouSpeakWeb.Meetings.CommentController do
 
   def upload(conn, %{"comment" => comment}) do
     IO.inspect(comment, label: :comment)
+
     conn
     |> put_status(:ok)
     |> render("show.json", %{})

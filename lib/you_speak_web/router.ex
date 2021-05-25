@@ -13,6 +13,9 @@ defmodule YouSpeakWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug YouSpeakWeb.Plugs.SetUser
+    plug YouSpeakWeb.Plugs.SetTeacher
   end
 
   scope "/", YouSpeakWeb do
