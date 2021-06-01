@@ -6,7 +6,7 @@
   }
 
   .page_404 img {
-  	width: 100%;
+  	width: 101%;
   }
 
   .four_zero_four_bg {
@@ -45,7 +45,7 @@
               </div>
               <div class="contant_box_404">
                  <h3 class="h2">
-                    Look like you're lost
+                    Looks like you're lost
                  </h3>
                  <p>the page you are looking for not avaible!</p>
                  <a href="/groups" class="link_404">Go to Home</a>
