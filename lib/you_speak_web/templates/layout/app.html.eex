@@ -12,26 +12,28 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/videoPlayer.js") %>"></script>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/voiceRecorder.js") %>"></script>
   </head>
-  <body>
-  <h1><%= link("Home", to: Routes.group_path(@conn, :index), class: "cabecalho")%>
-  </h1>
-  <h1><%= link("Sign out", to: Routes.auth_path(@conn, :signout), class: "cabecalho") %>
-  </h1>
 
-    <header>
-      <section class="container">
+  
+  <body>
+    <header id="header">
+    <a id="logo" href= "">Logo</a>
+      <section id="container">
           <%= if @conn.assigns[:user] do %>
             <ul class="right">
-              </li>
+              <li><%= link "Home", to: Routes.group_path(@conn, :index) %></li>
+              <li><%= link "Sign out", to: Routes.auth_path(@conn, :signout) %></li>
             </ul>
           <% end %>
       </section>
     </header>
+
+  </body>
+
+
     <main role="main" class="container">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
             <%= @inner_content %>
 
     </main>
-  </body>
 </html>

@@ -5,7 +5,7 @@
     </p>
   </section>
 <% else %>
-  <h2>teste</h1>
+  <h1>Groups</h1>
 
   <table class="centered">
     <thead>

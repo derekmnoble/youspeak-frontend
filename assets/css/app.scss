@@ -34,6 +34,36 @@
   display: block;
   margin: -1rem 0 2rem;
 }
-.cabecalho{
-  background-color: #ff8210;
+
+body, ul {
+  margin: 8px;
+  padding: 0px;
 }
+
+a{
+  color: black;
+  font-family: sans-serif;
+  }
+
+a:hover{
+  background: rgba(0, 0, 0, 0);
+
+}
+#logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#header{
+  display: flex;
+}
+
+#container{
+  display: flex;
+  list-style: none;
+}
+
+
+
+
+
